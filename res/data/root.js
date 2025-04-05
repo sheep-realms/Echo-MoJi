@@ -7,11 +7,6 @@ echoLiveSystem.registry.init([
             value: undefined
         }
     }, {
-        name: 'emoji',
-        unique_key: 'meta.name',
-        sync: true,
-        default_data: {}
-    }, {
         name: 'font_weight',
         unique_key: 'name',
         default_data: {
