@@ -1,0 +1,273 @@
+/* ============================================================
+ * Echo-Live
+ * Github: https://github.com/sheep-realms/Echo-Live
+ * License: GNU General Public License 3.0
+ * ============================================================
+**/
+
+
+/* 高对比度 */
+.accessibility-high-contrast {
+    --accessibility-outline-color: #00E9FF;
+    --accessibility-outline-size: 2px;
+    --accessibility-outline-style: solid;
+    --accessibility-outline: var(--accessibility-outline-color) var(--accessibility-outline-size) var(--accessibility-outline-style);
+
+    --color-main: rgb(44, 114, 154);
+    --color-main-dark: gb(26, 90, 127);
+
+    --color-general: rgb(44, 114, 154);
+    --color-safe: rgb(50, 141, 42);
+    --color-warn: rgb(148, 122, 35);
+    --color-danger: rgb(148, 56, 60);
+    --color-special: rgb(114, 56, 135);
+
+    --color-general-dark: rgb(26, 90, 127);
+    --color-safe-dark: rgb(34, 94, 27);
+    --color-warn-dark: rgb(112, 94, 33);
+    --color-danger-dark: rgb(128, 41, 46);
+    --color-special-dark: rgb(91, 37, 110);
+
+    --color-general-glass: rgba(45, 147, 206, 0.05);
+    --color-safe-glass: rgba(69, 204, 56, 0.05);
+    --color-warn-glass: rgba(230, 189, 53, 0.05);
+    --color-danger-glass: rgba(230, 82, 89, 0.05);
+    --color-special-glass: rgba(147, 61, 178, 0.05);
+
+    --text-primary: #000;
+    --text-regular: #222;
+    --text-secondary: #444;
+    --text-placeholder: #666;
+
+    --page-bgcolor-glass: var(--page-bgcolor);
+    --border-color: #000;
+    --box-shadow: 0 0 0 4px rgba(128, 128, 128, 0.75);
+
+    --modal-bgcolor: rgba(0, 0, 0, 0.75);
+    --msgbox-bgcolor: #FFFFFF;
+    --commander-bgcolor: #000000;
+    --commander-color: #FFFFFF;
+    --commander-placeholder-color: #CCCCCC;
+
+    --scrollbar-thumb-color: rgba(0, 0, 0, 1);
+    --scrollbar-thumb-hover-color:rgba(0, 0, 0, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not(.prefers-color-scheme-light).accessibility-high-contrast {
+        --color-main: rgb(64, 173, 235);
+        --color-main-dark: rgb(40, 144, 204);
+    
+        --color-general: #3BA7E6;
+        --color-safe: #5AE64D;
+        --color-warn: #E6BD35;
+        --color-danger: #FF7379;
+        --color-special: #D481F2;
+    
+        --color-general-dark: var(--color-general);
+        --color-safe-dark: var(--color-safe);
+        --color-warn-dark: var(--color-warn);
+        --color-danger-dark: var(--color-danger);
+        --color-special-dark: var(--color-special);
+    
+        --color-general-glass: rgba(45, 147, 206, 0.05);
+        --color-safe-glass: rgba(69, 204, 56, 0.05);
+        --color-warn-glass: rgba(230, 189, 53, 0.05);
+        --color-danger-glass: rgba(230, 82, 89, 0.05);
+        --color-special-glass: rgba(147, 61, 178, 0.05);
+    
+        --fh-border-coler: #AAAAAA;
+        --text-primary: #FFF;
+        --text-regular: #DDD;
+        --text-secondary: #BBB;
+        --text-placeholder: #999;
+    
+        --border-color: #FFF;
+        --box-shadow: 0 0 0 4px rgba(128, 128, 128, 0.75);
+    
+        --page-bgcolor: #000;
+        --page-bgcolor-glass: var(--page-bgcolor);
+        --input-bgcolor: #0D111A;
+        --input-color: var(--text-primary);
+
+        --modal-bgcolor: rgba(255, 255, 255, 0.65);
+        --msgbox-bgcolor: #0D111A;
+        --commander-bgcolor: #FFFFFF;
+        --commander-color: #000000;
+        --commander-placeholder-color: #444444;
+
+        --checkbox-corner-marker-color: rgba(30, 33, 41, 0.5);
+
+        --scrollbar-thumb-color: rgba(255, 255, 255, 1);
+        --scrollbar-thumb-hover-color:rgba(255, 255, 255, 1);
+    }
+
+    :root:not(.prefers-color-scheme-light) * {
+        --corner-marker-color: rgba(30, 33, 41, 0.5);
+        --fh-border-coler: #FFF;
+    }
+}
+
+.prefers-color-scheme-dark.accessibility-high-contrast {
+    --color-main: rgb(64, 173, 235);
+    --color-main-dark: rgb(40, 144, 204);
+    
+    --color-general: #3BA7E6;
+    --color-safe: #5AE64D;
+    --color-warn: #E6BD35;
+    --color-danger: #FF7379;
+    --color-special: #D481F2;
+
+    --color-general-dark: var(--color-general);
+    --color-safe-dark: var(--color-safe);
+    --color-warn-dark: var(--color-warn);
+    --color-danger-dark: var(--color-danger);
+    --color-special-dark: var(--color-special);
+
+    --color-general-glass: rgba(45, 147, 206, 0.12);
+    --color-safe-glass: rgba(69, 204, 56, 0.12);
+    --color-warn-glass: rgba(230, 189, 53, 0.12);
+    --color-danger-glass: rgba(230, 82, 89, 0.12);
+    --color-special-glass: rgba(147, 61, 178, 0.12);
+
+    --text-primary: #FFF;
+    --text-regular: #DDD;
+    --text-secondary: #BBB;
+    --text-placeholder: #999;
+
+    --border-color: #FFF;
+    --box-shadow: 0 0 0 4px rgba(128, 128, 128, 0.75);
+
+    --page-bgcolor: #000;
+    --page-bgcolor-glass: var(--page-bgcolor);
+    --input-bgcolor: #0D111A;
+    --input-color: var(--text-primary);
+
+    --modal-bgcolor: rgba(255, 255, 255, 0.65);
+    --msgbox-bgcolor: #0D111A;
+    --commander-bgcolor: #FFFFFF;
+    --commander-color: #000000;
+    --commander-placeholder-color: #444444;
+
+    --checkbox-corner-marker-color: rgba(30, 33, 41, 0.5);
+
+    --scrollbar-thumb-color: rgba(255, 255, 255, 1);
+    --scrollbar-thumb-hover-color:rgba(255, 255, 255, 1);
+}
+
+.prefers-color-scheme-dark * {
+    --corner-marker-color: rgba(30, 33, 41, 0.5);
+    --fh-border-coler: #FFF;
+}
+
+.prefers-color-scheme-dark .accessibility-high-contrast .fh-button:not(.fh-ghost, .fh-dashed, .fh-air),
+.prefers-color-scheme-dark .accessibility-high-contrast .settings-nav-item[aria-selected="true"] {
+    color: var(--page-bgcolor);
+}
+
+.prefers-color-scheme-dark .accessibility-high-contrast .fh-button:not(.fh-ghost, .fh-dashed, .fh-air) svg,
+.prefers-color-scheme-dark .accessibility-high-contrast .settings-nav-item[aria-selected="true"] svg {
+    fill: var(--page-bgcolor);
+}
+
+.accessibility-high-contrast .review-font-size-card {
+    border: 1px solid var(--border-color);
+}
+
+
+
+.accessibility-high-contrast .fh-input-label-type-after {
+    border: 1px solid var(--border-color);
+    border-inline-start: unset;
+}
+
+.accessibility-high-contrast .fh-input-label-type-before {
+    border: 1px solid var(--border-color);
+    border-inline-end: unset;
+}
+
+.accessibility-high-contrast .fh-input-label-type-after:not(.fh-input-label-only-icon),
+.accessibility-high-contrast .fh-input-label-type-before:not(.fh-input-label-only-icon) {
+    padding-inline-start: 0.375em;
+    padding-inline-end: 0.375em;
+}
+
+.accessibility-high-contrast textarea,
+.accessibility-high-contrast input[type=number],
+.accessibility-high-contrast input[type=text],
+.accessibility-high-contrast #editor-log,
+.accessibility-high-contrast select {
+    border: 1px solid var(--text-primary);
+}
+
+.accessibility-high-contrast input[type=number]:focus,
+.accessibility-high-contrast input[type=text]:focus,
+.accessibility-high-contrast textarea:focus,
+.accessibility-high-contrast select:focus,
+.accessibility-high-contrast button:focus,
+.accessibility-high-contrast a:focus {
+    outline: var(--accessibility-outline) !important;
+}
+
+.accessibility-high-contrast .settings-panel a:not(.settings-link-bar),
+.accessibility-high-contrast .fh-link,
+.accessibility-link-underline .settings-panel a:not(.settings-link-bar),
+.accessibility-link-underline .fh-link {
+    border-bottom: var(--color-general-dark) 1px solid;
+}
+
+.accessibility-link-underline #popups-emoji .emoji-meta a {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.accessibility-high-contrast .settings-item.settings-item-condition-test-fail>* {
+    opacity: 1;
+}
+
+.accessibility-high-contrast .settings-item.settings-item-condition-test-fail .title {
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.accessibility-high-contrast .settings-item.settings-item-condition-test-fail:hover>* {
+    opacity: 1;
+}
+
+.accessibility-high-contrast .fh-notice-item.is-permanently .fh-notice-item-content-action,
+.accessibility-high-contrast .fh-notice-item-container:hover .fh-notice-item-content-action {
+    opacity: 1;
+}
+
+
+/* 红绿色盲 */
+.accessibility-protanopia-and-deuteranopia {
+    --color-safe: var(--color-general);
+    --color-safe-dark: var(--color-general-dark);
+    --color-safe-glass: var(--color-general-glass);
+}
+
+
+/* 禁用动画 */
+.accessibility-animation-disable,
+.accessibility-animation-disable * {
+    animation: unset !important;
+    transition: unset !important;
+}
+
+.accessibility-animation-disable::view-transition-old(root),
+.accessibility-animation-disable::view-transition-new(root) {
+    animation-duration: 0s;
+}
+
+
+/* 通用 */
+.accessibility-high-contrast #popups-palette,
+.accessibility-protanopia-and-deuteranopia #popups-palette {
+    --ex-height: 48px;
+}
+
+.accessibility-high-contrast #popups-palette.color-contrast-enable,
+.accessibility-protanopia-and-deuteranopia #popups-palette.color-contrast-enable {
+    --ex-height: calc(48px + 60px);
+}
