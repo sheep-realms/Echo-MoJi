@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page_title.echomoji">Echo MoJi</title>
+    <link rel="stylesheet" href="res/style/echomoji.css">
+    <script src="lib/jquery-3.7.1.min.js"></script>
+    <script src="config.js"></script>
+    <script src="message.js"></script>
+    <script src="res/class/EchoMoJi.js"></script>
+    <script src="res/script/echomoji.js"></script>
+    <script src="app.js"></script>
+    <script src="res/class/EchoLiveSystem.js"></script>
+    <script src="res/data/root.js"></script>
+    <script src="lang/index.js"></script>
+    <script src="res/class/Translator.js"></script>
+    <script id="translator-init">
+        const translator = new Translator(config.global.language);
+        const $t = function(...e) {
+            return translator.output(...e);
+        };
+        const $tc = function(...e) {
+            return translator.outputByTextComponent(...e);
+        };
+        translator.init();
+    </script>
+</head>
+<body onclick="location.reload();">
+    <span id="messager"><span data-i18n="echomoji.init">跑马灯已载入！</span></span>
+
+    <script src="res/script/i18n.js" defer></script>
+</body>
+</html>

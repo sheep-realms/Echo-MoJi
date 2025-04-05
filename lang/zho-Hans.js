@@ -272,6 +272,9 @@ const lang_zho_Hans = {
             }
         }
     },
+    echomoji: {
+        init: "跑马灯已载入！"
+    },
     effect: {
         next: {
             blur: "聚焦",
