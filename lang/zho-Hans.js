@@ -157,7 +157,7 @@ const lang_zho_Hans = {
                 },
                 random_weight_reset_negative_rate: {
                     _title: "随机权重负向重置比率",
-                    _description: "被抽中消息的权重按消息总数比率重置为负值。权重小于等于 0 的消息无法被抽中。<br>注意：当此值大于 0.5 时，会出现消息被抽完的情况。"
+                    _description: "被抽中消息的权重按消息总数比率重置为负值。权重小于等于 0 的消息无法被抽中。<br>注意：当此值大于 0.5 时，可能会出现消息被抽完的情况。"
                 }
             },
             next_effect: {

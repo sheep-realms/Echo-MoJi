@@ -159,30 +159,41 @@ class EchoMoJi {
     }
 
     next() {
+        // 在队列中
         if (this.inQueue) {
             return this.send(this.getMessageQueueFirst());
         }
 
+        // 处理极少数据
         if (this.messages.length === 0) return;
         if (this.messages.length === 1) {
             if (this.lastIndex !== 1) this.send(this.messages[0]);
             return;
         }
 
+        // 选择随机方法
+        let randomMethod = this.config.echomoji.message.random_method;
+        const randomMethodMap = {
+            average: 'randomIndex',
+            weighted: 'weightedRandomIndex'
+        };
+        if (randomMethodMap[this.config.echomoji.message.random_method] === undefined) randomMethod = 'randomIndex';
+
+        // 尝试抽取
         let r;
+        let rc = 0;
+        do {
+            r = this[randomMethodMap[randomMethod]].call(this);
+            rc++;
+        } while (r === undefined && rc < 16);
 
-        switch (this.config.echomoji.message.random_method) {
-            case 'weighted':
-                r = this.weightedRandomIndex();
-                break;
-            case 'average':
-            default:
-                r = this.randomIndex();
-        }
+        // 抽取失败
+        if (r === undefined) return;
 
+        // 发送消息
         const message = this.messages[r];
 
-        if (typeof message === 'object' && message.isQueue) {
+        if (typeof message === 'object' && message.type === 'queue') {
             this.setMessageQueue(message.queue);
             this.send(this.getMessageQueueFirst());
         } else {
