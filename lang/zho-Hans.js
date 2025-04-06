@@ -142,6 +142,22 @@ const lang_zho_Hans = {
                 duration: {
                     _title: "消息持续时间",
                     _description: "每一条消息显示的时间。"
+                },
+                random_method: {
+                    _title: "消息随机方式",
+                    _description: "控制随机抽取消息的细节。<br>- 平均随机：每条消息的出现概率相同。<br>- 加权随机：每条消息的出现概率与其权重成正比，每次抽取将为所有未抽中的消息增加权重，抽中的消息重置权重。"
+                },
+                random_weight_init: {
+                    _title: "随机权重初始值",
+                    _description: "每条消息的初始权重。"
+                },
+                random_weight_step: {
+                    _title: "随机权重步进值",
+                    _description: "每次抽取时未抽中的消息的权重增加值。"
+                },
+                random_weight_reset_negative_rate: {
+                    _title: "随机权重负向重置比率",
+                    _description: "被抽中消息的权重按消息总数比率重置为负值。权重小于等于 0 的消息无法被抽中。<br>注意：当此值大于 0.5 时，会出现消息被抽完的情况。"
                 }
             },
             next_effect: {
@@ -371,6 +387,10 @@ const lang_zho_Hans = {
     page_title: {
         echomoji: "Echo MoJi",
         settings: "Echo MoJi 配置文件编辑器"
+    },
+    random_method: {
+        average: "平均随机",
+        weighted: "加权随机"
     },
     settings: {
         unknown_config_type: "暂不支持修改此配置",

@@ -142,6 +142,22 @@ const lang_zho_Hant_TW = {
                 duration: {
                     _title: "訊息持續時間",
                     _description: "每一條訊息顯示的時間。"
+                },
+                random_method: {
+                    _title: "訊息隨機方式",
+                    _description: "控制隨機抽取訊息的細節。<br>- 平均隨機：每條訊息的出現機率相同。<br>- 加權隨機：每條訊息的出現機率與其權重成正比，每次抽取將為所有未抽中的訊息增加權重，抽中的訊息重置權重。"
+                },
+                random_weight_init: {
+                    _title: "隨機權重初始值",
+                    _description: "每條訊息的初始權重。"
+                },
+                random_weight_step: {
+                    _title: "隨機權重步進值",
+                    _description: "每次抽取時未抽中的訊息的權重增加值。"
+                },
+                random_weight_reset_negative_rate: {
+                    _title: "隨機權重負向重置比率",
+                    _description: "被抽中訊息的權重按訊息總數比率重置為負值。權重小於等於 0 的訊息無法被抽中。<br>注意：當此值大於 0.5 時，會出現訊息被抽完的情況。"
                 }
             },
             next_effect: {
@@ -272,6 +288,9 @@ const lang_zho_Hant_TW = {
             }
         }
     },
+    echomoji: {
+        init: "跑馬燈已載入！"
+    },
     effect: {
         next: {
             blur: "聚焦",
@@ -368,6 +387,10 @@ const lang_zho_Hant_TW = {
     page_title: {
         echomoji: "Echo MoJi",
         settings: "Echo MoJi 配置檔案編輯器"
+    },
+    random_method: {
+        average: "平均隨機",
+        weighted: "加權隨機"
     },
     settings: {
         unknown_config_type: "暫不支援修改此配置",

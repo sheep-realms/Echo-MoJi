@@ -59,6 +59,13 @@ echoLiveSystem.registry.init([
             hidden: false
         }
     }, {
+        name: 'random_method',
+        unique_key: 'name',
+        default_data: {
+            name: undefined,
+            value: undefined
+        }
+    }, {
         name: 'script',
         unique_key: 'name',
         default_data: {

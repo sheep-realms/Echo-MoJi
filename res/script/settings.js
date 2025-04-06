@@ -5,6 +5,13 @@
  * ============================================================
  */
 
+/* ============================================================
+ * Echo-MoJi
+ * Github: https://github.com/sheep-realms/Echo-MoJi
+ * License: GNU General Public License 3.0
+ * ============================================================
+ */
+
 
 "use strict";
 
@@ -204,6 +211,16 @@ const configDataList = [
             });
         },
         key: 'echomoji.style.font_weight'
+    }, {
+        data: arr => {
+            echoLiveSystem.registry.forEach('random_method', e => {
+                arr.push({
+                    title: $t(`random_method.${ e.name }`, {}, ''),
+                    value: e.value
+                });
+            });
+        },
+        key: 'echomoji.message.random_method'
     }
 ];
 
@@ -1120,6 +1137,14 @@ $(document).on('click', '.settings-switch', function() {
 
     configChangeCheck();
 
+    setTimeout(function() {
+        checkConfigCondition(name);
+    }, 10);
+});
+
+$(document).on('change', '.settings-item .fh-input-select-component', function() {
+    const $parent = $(this).parents('.settings-item').eq(0);
+    const name = $parent.data('id');
     setTimeout(function() {
         checkConfigCondition(name);
     }, 10);

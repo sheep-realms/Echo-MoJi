@@ -12,7 +12,11 @@ const config = {
     },
     "echomoji": {
         "message": {
-            "duration": 10000
+            "duration": 10000,
+            "random_method": "weighted",
+            "random_weight_init": 1,
+            "random_weight_step": 1,
+            "random_weight_reset_negative_rate": 0.35,
         },
         "print_effect": {
             "name": "none",

@@ -84,6 +84,58 @@ const db_config_define = [
             step: 500
         }
     }, {
+        name: 'echomoji.message.random_method',
+        type: 'string',
+        default: 'weighted',
+        created: 1,
+        attribute: {
+            datalist: []
+        }
+    }, {
+        name: 'echomoji.message.random_weight_init',
+        type: 'number',
+        default: 1,
+        created: 1,
+        attribute: {
+            min: 1
+        },
+        conditions: [
+            {
+                name: 'echomoji.message.random_method',
+                value: 'weighted'
+            }
+        ]
+    }, {
+        name: 'echomoji.message.random_weight_step',
+        type: 'number',
+        default: 1,
+        created: 1,
+        attribute: {
+            min: 0
+        },
+        conditions: [
+            {
+                name: 'echomoji.message.random_method',
+                value: 'weighted'
+            }
+        ]
+    }, {
+        name: 'echomoji.message.random_weight_reset_negative_rate',
+        type: 'number',
+        default: 0.35,
+        created: 1,
+        attribute: {
+            min: 0,
+            max: 1,
+            step: 0.05
+        },
+        conditions: [
+            {
+                name: 'echomoji.message.random_method',
+                value: 'weighted'
+            }
+        ]
+    }, {
         name: 'echomoji.next_effect',
         type: 'object',
         created: 1
