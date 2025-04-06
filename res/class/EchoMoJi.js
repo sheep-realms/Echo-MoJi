@@ -12,6 +12,8 @@ class EchoMoJi {
         this.messagesWeight = [];
         this.messageWeightResetValue = -1;
         this.lastIndex = -1;
+        this.inQueue = false;
+        this.messageQueue = [];
         this.hidden = true;
         this.timer = -1;
         this.event          = {
@@ -129,6 +131,20 @@ class EchoMoJi {
         });
     }
 
+    setMessageQueue(queue = []) {
+        queue = JSON.parse(JSON.stringify(queue));
+        if (!Array.isArray(queue)) queue = [queue];
+        this.inQueue = true;
+        this.messageQueue = queue;
+    }
+
+    getMessageQueueFirst() {
+        if (this.messageQueue.length === 0) return undefined;
+        const r = this.messageQueue.shift();
+        if (this.messageQueue.length === 0) this.inQueue = false;
+        return r;
+    }
+
     start() {
         if (this.timer !== -1) return;
         this.timer = setInterval(() => {
@@ -143,6 +159,10 @@ class EchoMoJi {
     }
 
     next() {
+        if (this.inQueue) {
+            return this.send(this.getMessageQueueFirst());
+        }
+
         if (this.messages.length === 0) return;
         if (this.messages.length === 1) {
             if (this.lastIndex !== 1) this.send(this.messages[0]);
@@ -160,12 +180,37 @@ class EchoMoJi {
                 r = this.randomIndex();
         }
 
-        this.send(this.messages[r]);
+        const message = this.messages[r];
+
+        if (typeof message === 'object' && message.isQueue) {
+            this.setMessageQueue(message.queue);
+            this.send(this.getMessageQueueFirst());
+        } else {
+            this.send(message);
+        }
 
         this.lastIndex = r;
     }
 
     send(message = '') {
-        this.event.send(message);
+        if (typeof message === 'string') return this.event.send(EchoLiveTools.safeHTML(message));
+        if (typeof message !== 'object') return;
+        if (!Array.isArray(message)) message = [message];
+
+        let dom = '';
+        let r;
+        message.forEach(e => {
+            r = EchoLiveTools.messageStyleGenerator(e);
+            dom += FHUI.element(
+                'span',
+                {
+                    class: r.class,
+                    style: r.style
+                },
+                EchoLiveTools.safeHTML(e.text)
+            );
+        });
+
+        this.event.send(dom);
     }
 }

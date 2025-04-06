@@ -13,6 +13,6 @@ echomoji.on('send', function(message) {
     $('#messager').addClass('hide');
     setTimeout(function() {
         $('#messager').removeClass('hide');
-        $('#messager').text(message);
+        $('#messager').html(message);
     }, 151);
 });

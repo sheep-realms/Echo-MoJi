@@ -10,6 +10,84 @@ class EchoLiveTools {
     constructor() {}
 
     /**
+     * 解析段落格式样式
+     * @param {Object} data 单一段落格式
+     * @returns {Object} 类与样式
+     */
+    static messageStyleGenerator(data) {
+        function __setClassAndStyle(styleData) {
+            const value = data.style[styleData.name];
+            if (
+                typeof value === 'undefined' ||
+                Array.isArray(value) ||
+                typeof value === 'function' ||
+                typeof value === 'symbol'
+            ) return;
+
+            if (styleData.is_style) {
+                if (typeof data.style.style === 'undefined') return;
+                style += data.style.style;
+                return;
+            }
+
+            if (typeof value === 'boolean' && !value) return;
+
+            if (typeof styleData.class !== 'undefined') {
+                if (!Array.isArray(styleData.class)) styleData.class = [styleData.class];
+                styleData.class.forEach(e => {
+                    let v = value;
+                    if (typeof value !== 'object') v = { value: v }
+
+                    cls += EchoLiveTools.replacePlaceholders(e, v);
+                    cls += ' ';
+                });
+            }
+
+            if (typeof styleData.style !== 'undefined') {
+                if (!Array.isArray(styleData.style)) styleData.style = [styleData.style];
+                styleData.style.forEach(e => {
+                    if (styleData.custom_style) {
+                        let v = value;
+                        if (typeof value !== 'object') v = { value: v }
+                        
+                        style += EchoLiveTools.replacePlaceholders(e, v);
+                        style += ' ';
+                    } else {
+                        style += `${e}: ${value}; `;
+                    }
+                });
+            }
+        }
+
+        let cls = '';
+        if (data?.class) {
+            cls = data.class + ' ';
+        }
+        let style = '';
+        if (data?.typewrite) cls += 'echo-text-typewrite '
+        if (data?.style) {
+            if (!config.advanced.performance.foreach_text_style_by_message_data) {
+                echoLiveSystem.registry.forEach('text_style', e => {
+                    __setClassAndStyle(e);
+                });
+            } else {
+                for (const key in data.style) {
+                    if (Object.prototype.hasOwnProperty.call(data.style, key)) {
+                        let r = echoLiveSystem.registry.getRegistryValue('text_style', key);
+                        if (r === undefined) continue;
+                        __setClassAndStyle(r);
+                    }
+                }
+            }
+        }
+
+        return {
+            class: cls,
+            style: style
+        }
+    }
+
+    /**
      * 获取 URL 地址参数
      * @param {String} name 参数名称
      * @returns {String|null} 参数值
@@ -172,5 +250,20 @@ class EchoLiveTools {
                 });
             }
         }
+    }
+
+    /**
+     * 替换字符串占位符
+     * @param {String} str 源字符串
+     * @param {Object} data 变量集
+     * @returns {String} 替换后的字符串
+     */
+    static replacePlaceholders(str, data) {
+        return str.replace(/\{(.*?)\}/g, (match, content) => {
+            let [key, defaultValue] = content.split('|').map(part => part.trim());
+            if (data.hasOwnProperty(key) && (typeof data[key] === 'string' || typeof data[key] === 'number')) return data[key];
+            if (defaultValue) return defaultValue;
+            return match;
+        });
     }
 }
