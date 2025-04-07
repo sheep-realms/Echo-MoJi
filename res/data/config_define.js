@@ -62,6 +62,21 @@ const db_config_define = [
         default: false,
         created: 1
     }, {
+        name: 'echomoji.style.text_color',
+        type: 'string',
+        default: '',
+        created: 1
+    }, {
+        name: 'echomoji.style.background_color',
+        type: 'string',
+        default: '',
+        created: 1
+    }, {
+        name: 'echomoji.style.font_size',
+        type: 'string',
+        default: '38px',
+        created: 1
+    }, {
         name: 'echomoji.style.font_weight',
         type: 'string',
         default: 'inherit',

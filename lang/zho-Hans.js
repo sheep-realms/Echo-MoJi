@@ -131,9 +131,21 @@ const lang_zho_Hans = {
                     _title: "启用跑马灯主题脚本",
                     _description: "一些高级效果可能需要启用主题脚本才能正常使用。目前所有预制主题均不包含脚本。<br>脚本中可以执行任意代码，请谨慎安装需要您启用脚本的第三方主题。"
                 },
+                text_color: {
+                    _title: "文本颜色",
+                    _description: "跑马灯的文本颜色，留空则使用主题设定。<br>支持 HEX、RGB、HSL 等颜色格式，例如 #66CCFF、rgb(102, 204, 255)。"
+                },
+                background_color: {
+                    _title: "背景颜色",
+                    _description: "跑马灯的背景颜色，留空则使用主题设定。<br>支持格式同上。"
+                },
+                font_size: {
+                    _title: "字号",
+                    _description: "跑马灯的字号，留空则使用主题设定。<br>支持 px、em、rem 等单位，例如 16px、1.5em。",
+                },
                 font_weight: {
-                    _title: "默认字重",
-                    _description: "跑马灯的默认字重，可被主题的样式设置或消息格式覆盖。"
+                    _title: "字重",
+                    _description: "跑马灯的字重，留空则使用主题设定。"
                 }
             },
             message: {

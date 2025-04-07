@@ -131,9 +131,21 @@ const lang_zho_Hant_TW = {
                     _title: "啟用跑馬燈主題指令碼",
                     _description: "一些高階效果可能需要啟用主題指令碼才能正常使用。目前所有預製主題均不包含指令碼。<br>指令碼中可以執行任意程式碼，請謹慎安裝需要您啟用指令碼的第三方主題。"
                 },
+                text_color: {
+                    _title: "文字顏色",
+                    _description: "跑馬燈的文字顏色，留空則使用主題設定。<br>支援 HEX、RGB、HSL 等顏色格式，例如 #66CCFF、rgb(102, 204, 255)。"
+                },
+                background_color: {
+                    _title: "背景顏色",
+                    _description: "跑馬燈的背景顏色，留空則使用主題設定。<br>支援格式同上。"
+                },
+                font_size: {
+                    _title: "字號",
+                    _description: "跑馬燈的字號，留空則使用主題設定。<br>支援 px、em、rem 等單位，例如 16px、1.5em。",
+                },
                 font_weight: {
-                    _title: "預設字重",
-                    _description: "跑馬燈的預設字重，可被主題的樣式設定或訊息格式覆蓋。"
+                    _title: "字重",
+                    _description: "跑馬燈的字重，留空則使用主題設定。"
                 }
             },
             message: {

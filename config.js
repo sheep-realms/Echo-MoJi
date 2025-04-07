@@ -11,6 +11,14 @@ const config = {
         "live_font_weight": "inherit"
     },
     "echomoji": {
+        "style": {
+            "theme": "vanilla",
+            "theme_script_enable": false,
+            "text_color": "",
+            "background_color": "",
+            "font_size": "",
+            "font_weight": ""
+        },
         "message": {
             "duration": 10000,
             "random_method": "weighted",

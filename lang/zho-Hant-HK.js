@@ -131,9 +131,21 @@ const lang_zho_Hant_HK = {
                     _title: "啟用跑馬燈主題腳本",
                     _description: "一些高級效果可能需要啟用主題腳本才能正常使用。目前所有預製主題均不包含腳本。<br>腳本中可以執行任意代碼，請謹慎安裝需要您啟用腳本的第三方主題。"
                 },
+                text_color: {
+                    _title: "文本顏色",
+                    _description: "跑馬燈的文本顏色，留空則使用主題設定。<br>支持 HEX、RGB、HSL 等顏色格式，例如 #66CCFF、rgb(102, 204, 255)。"
+                },
+                background_color: {
+                    _title: "背景顏色",
+                    _description: "跑馬燈的背景顏色，留空則使用主題設定。<br>支持格式同上。"
+                },
+                font_size: {
+                    _title: "字號",
+                    _description: "跑馬燈的字號，留空則使用主題設定。<br>支持 px、em、rem 等單位，例如 16px、1.5em。",
+                },
                 font_weight: {
-                    _title: "默認字重",
-                    _description: "跑馬燈的默認字重，可被主題的樣式設置或消息格式覆蓋。"
+                    _title: "字重",
+                    _description: "跑馬燈的字重，留空則使用主題設定。"
                 }
             },
             message: {
