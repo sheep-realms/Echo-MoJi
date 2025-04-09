@@ -28,6 +28,7 @@ body {
     opacity: 1;
     transition: opacity .15s;
     font-weight: var(--moji-font-weight);
+    position: relative;
 }
 
 #messager.hide {

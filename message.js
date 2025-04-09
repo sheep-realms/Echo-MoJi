@@ -6,7 +6,7 @@ const db_message = [
     '可怜即可爱！',
     {
         type: 'queue',
-        queue: [
+        content: [
             '测试队列1',
             '测试队列2',
             '测试队列3',

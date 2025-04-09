@@ -172,9 +172,9 @@ const lang_zho_Hant_TW = {
                     _description: "被抽中訊息的權重按訊息總數比率重置為負值。權重小於等於 0 的訊息無法被抽中。<br>注意：當此值大於 0.5 時，可能會出現訊息被抽完的情況。"
                 }
             },
-            next_effect: {
-                _title: "訊息切換動效",
-                _description: "切換訊息時所使用的動畫效果",
+            message_in_effect: {
+                _title: "訊息入場動效",
+                _description: "訊息進入時所使用的動畫效果",
                 name: {
                     _title: "動效名稱",
                     _description: "所使用的動效名稱。"
@@ -187,12 +187,28 @@ const lang_zho_Hant_TW = {
                     _title: "動效規模乘數",
                     _description: "動畫的運動幅度乘數。"
                 },
-                timing_function_in: {
-                    _title: "動效時間曲線（進入）",
+                timing_function: {
+                    _title: "動效時間曲線",
                     _description: "動畫在不同時間段的運動速度。"
+                }
+            },
+            message_out_effect: {
+                _title: "訊息離去動效",
+                _description: "訊息離去時所使用的動畫效果",
+                name: {
+                    _title: "動效名稱",
+                    _description: "所使用的動效名稱。"
                 },
-                timing_function_out: {
-                    _title: "動效時間曲線（離去）",
+                duration: {
+                    _title: "動效用時",
+                    _description: "播放動畫所需時間。"
+                },
+                scale: {
+                    _title: "動效規模乘數",
+                    _description: "動畫的運動幅度乘數。"
+                },
+                timing_function: {
+                    _title: "動效時間曲線",
                     _description: "動畫在不同時間段的運動速度。"
                 }
             }
@@ -304,11 +320,22 @@ const lang_zho_Hant_TW = {
         init: "跑馬燈已載入！"
     },
     effect: {
-        next: {
-            blur: "聚焦",
-            fade: "淡出淡入",
+        message_in: {
+            blur_in: "聚焦",
+            fade_in: "淡入",
             move_from_down: "從下方移入",
             move_from_up: "從上方移入",
+            move_from_left: "從左側移入",
+            move_from_right: "從右側移入",
+            none: "無"
+        },
+        message_out: {
+            blur_out: "失焦",
+            fade_out: "淡出",
+            move_to_down: "從下方移出",
+            move_to_up: "從上方移出",
+            move_to_left: "從左側移出",
+            move_to_right: "從右側移出",
             none: "無"
         }
     },

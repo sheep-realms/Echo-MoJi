@@ -26,12 +26,17 @@ const config = {
             "random_weight_step": 1,
             "random_weight_reset_negative_rate": 0.35,
         },
-        "print_effect": {
-            "name": "none",
+        "message_in_effect": {
+            "name": "fade-in",
             "duration": 150,
             "scale": 1,
-            "timing_function_in": "ease-out",
-            "timing_function_out": "ease-out"
+            "timing_function": "ease-out"
+        },
+        "message_out_effect": {
+            "name": "fade-out",
+            "duration": 150,
+            "scale": 1,
+            "timing_function": "ease-in"
         }
     },
     "accessibility": {

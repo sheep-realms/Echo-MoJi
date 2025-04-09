@@ -12,12 +12,33 @@ if (config.echomoji?.style?.background_color) $('html').css('--moji-background-c
 if (config.echomoji?.style?.font_size) $('html').css('--moji-font-size', config.echomoji.style.font_size);
 if (config.echomoji?.style?.font_weight) $('html').css('--moji-font-weight', config.echomoji.style.font_weight);
 
+// 设置动画样式
+if (config.echomoji?.message_in_effect?.name) $('html').css('--message-in-effect-name', config.echomoji.message_in_effect.name);
+if (config.echomoji?.message_in_effect?.duration) $('html').css('--message-in-effect-speed', config.echomoji.message_in_effect.duration + 'ms');
+if (config.echomoji?.message_in_effect?.scale) $('html').css('--message-in-effect-scale', config.echomoji.message_in_effect.scale);
+if (config.echomoji?.message_in_effect?.timing_function) $('html').css('--message-in-effect-timing-function', config.echomoji.message_in_effect.timing_function);
+if (config.echomoji?.message_out_effect?.name) $('html').css('--message-out-effect-name', config.echomoji.message_out_effect.name);
+if (config.echomoji?.message_out_effect?.duration) $('html').css('--message-out-effect-speed', config.echomoji.message_out_effect.duration + 'ms');
+if (config.echomoji?.message_out_effect?.scale) $('html').css('--message-out-effect-scale', config.echomoji.message_out_effect.scale);
+if (config.echomoji?.message_out_effect?.timing_function) $('html').css('--message-out-effect-timing-function', config.echomoji.message_out_effect.timing_function);
+
+
 let echomoji = new EchoMoJi(config, db_message);
 
+let messageCache = '';
+
 echomoji.on('send', function(message) {
-    $('#messager').addClass('hide');
-    setTimeout(function() {
-        $('#messager').removeClass('hide');
-        $('#messager').html(message);
-    }, 151);
+    messageCache = message;
+    $('#messager').addClass('message-out-effect');
+});
+
+
+$(document).on('animationend', '#messager.message-out-effect', function() {
+    $('#messager').removeClass('message-out-effect');
+    $('#messager').html(messageCache);
+    $('#messager').addClass('message-in-effect');
+});
+
+$(document).on('animationend', '#messager.message-in-effect', function() {
+    $('#messager').removeClass('message-in-effect');
 });

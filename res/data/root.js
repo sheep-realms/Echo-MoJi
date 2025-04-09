@@ -50,7 +50,15 @@ echoLiveSystem.registry.init([
             script: undefined
         }
     }, {
-        name: 'next_effect',
+        name: 'message_in_effect',
+        unique_key: 'name',
+        default_data: {
+            name: undefined,
+            value: undefined,
+            hidden: false
+        }
+    }, {
+        name: 'message_out_effect',
         unique_key: 'name',
         default_data: {
             name: undefined,

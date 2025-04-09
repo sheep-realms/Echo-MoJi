@@ -23,6 +23,9 @@ class EchoMoJi {
         this.init();
     }
 
+    /**
+     * 初始化
+     */
     init() {
         for (let i = 0; i < this.messages.length; i++) {
             this.messagesWeight.push({
@@ -64,6 +67,10 @@ class EchoMoJi {
         return this.event[eventName] = action;
     }
 
+    /**
+     * 检查页面可见性
+     * @returns {Boolean} 是否可见
+     */
     checkVisibility() {
         if (document.visibilityState === "visible") {
             this.hidden = false;
@@ -76,6 +83,10 @@ class EchoMoJi {
         return !this.hidden;
     }
 
+    /**
+     * 随机索引
+     * @returns {Number} 随机索引
+     */
     randomIndex() {
         if (this.messages.length < 2) return undefined;
 
@@ -119,11 +130,20 @@ class EchoMoJi {
         }
     }
 
+    /**
+     * 设置消息权重
+     * @param {Number} index 索引
+     * @param {Number} weight 权重
+     */
     setMessageWeight(index, weight) {
         if (index < 0 || index >= this.messagesWeight.length) return;
         this.messagesWeight[index].weight = weight;
     }
 
+    /**
+     * 为所有消息增加权重
+     * @param {Number} weight 增加的权重
+     */
     addAllMessageWeight(weight = this.config.echomoji.message.random_weight_step || 1) {
         if (weight <= 0) return;
         this.messagesWeight.forEach(e => {
@@ -131,6 +151,10 @@ class EchoMoJi {
         });
     }
 
+    /**
+     * 设置消息队列
+     * @param {Array<String|Object|Array<Object>>} queue 消息队列
+     */
     setMessageQueue(queue = []) {
         queue = JSON.parse(JSON.stringify(queue));
         if (!Array.isArray(queue)) queue = [queue];
@@ -138,6 +162,10 @@ class EchoMoJi {
         this.messageQueue = queue;
     }
 
+    /**
+     * 抽取消息队列第一个元素
+     * @returns {String|Object|Array<Object>} 消息队列第一个元素
+     */
     getMessageQueueFirst() {
         if (this.messageQueue.length === 0) return undefined;
         const r = this.messageQueue.shift();
@@ -145,6 +173,9 @@ class EchoMoJi {
         return r;
     }
 
+    /**
+     * 启动主循环
+     */
     start() {
         if (this.timer !== -1) return;
         this.timer = setInterval(() => {
@@ -152,12 +183,18 @@ class EchoMoJi {
         }, this.config.echomoji.message.duration || 10000);
     }
 
+    /**
+     * 终止主循环
+     */
     stop() {
         if (this.timer === -1) return;
         clearInterval(this.timer);
         this.timer = -1;
     }
 
+    /**
+     * 进入下一个画面
+     */
     next() {
         // 在队列中
         if (this.inQueue) {
@@ -194,7 +231,7 @@ class EchoMoJi {
         const message = this.messages[r];
 
         if (typeof message === 'object' && message.type === 'queue') {
-            this.setMessageQueue(message.queue);
+            this.setMessageQueue(message.content);
             this.send(this.getMessageQueueFirst());
         } else {
             this.send(message);
@@ -203,6 +240,10 @@ class EchoMoJi {
         this.lastIndex = r;
     }
 
+    /**
+     * 发送消息
+     * @param {String|Object|Array<Object>} message 消息
+     */
     send(message = '') {
         if (typeof message === 'string') return this.event.send(EchoLiveTools.safeHTML(message));
         if (typeof message !== 'object') return;

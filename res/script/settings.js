@@ -170,14 +170,24 @@ const configDataList = [
         key: 'global.color_scheme'
     }, {
         data: arr => {
-            echoLiveSystem.registry.forEach('next_effect', e => {
+            echoLiveSystem.registry.forEach('message_in_effect', e => {
                 if (!e?.hidden || config.advanced.settings.display_hidden_option) arr.push({
-                    title: $t(`effect.next.${ e.name }`),
+                    title: $t(`effect.message_in.${ e.name }`),
                     value: e.value
                 });
             });
         },
-        key: 'echomoji.next_effect.name'
+        key: 'echomoji.message_in_effect.name'
+    }, {
+        data: arr => {
+            echoLiveSystem.registry.forEach('message_out_effect', e => {
+                if (!e?.hidden || config.advanced.settings.display_hidden_option) arr.push({
+                    title: $t(`effect.message_out.${ e.name }`),
+                    value: e.value
+                });
+            });
+        },
+        key: 'echomoji.message_out_effect.name'
     }, {
         data: arr => {
             echoLiveSystem.registry.forEach('timing_function', e => {
@@ -188,8 +198,8 @@ const configDataList = [
             });
         },
         key: [
-            'echomoji.next_effect.timing_function_in',
-            'echomoji.next_effect.timing_function_out'
+            'echomoji.message_in_effect.timing_function',
+            'echomoji.message_out_effect.timing_function'
         ]
     }, {
         data: arr => {
