@@ -151,6 +151,11 @@ const db_config_define = [
             }
         ]
     }, {
+        name: 'echomoji.message.allow_variable',
+        type: 'boolean',
+        default: true,
+        created: 1
+    }, {
         name: 'echomoji.message_in_effect',
         type: 'object',
         created: 1

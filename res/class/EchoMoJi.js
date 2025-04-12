@@ -16,8 +16,10 @@ class EchoMoJi {
         this.messageQueue = [];
         this.hidden = true;
         this.timer = -1;
+        this.variablesCache = {};
         this.event          = {
-            send: function() {}
+            send: function() {},
+            updateVariables: function() {}
         };
 
         this.init();
@@ -245,7 +247,13 @@ class EchoMoJi {
      * @param {String|Object|Array<Object>} message 消息
      */
     send(message = '') {
-        if (typeof message === 'string') return this.event.send(EchoLiveTools.safeHTML(message));
+        if (typeof message === 'string') {
+            return this.event.send(
+                EchoLiveTools.safeHTML(
+                    this.fillTextVariables(message)
+                )
+            );
+        }
         if (typeof message !== 'object') return;
         if (!Array.isArray(message)) message = [message];
 
@@ -259,10 +267,38 @@ class EchoMoJi {
                     class: r.class,
                     style: r.style
                 },
-                EchoLiveTools.safeHTML(e.text)
+                EchoLiveTools.safeHTML(this.fillTextVariables(e.text))
             );
         });
 
         this.event.send(dom);
+    }
+
+    updateVariables() {
+        const dateObject = EchoLiveTools.formatDateToObject();
+
+        for (const key in dateObject) {
+            if (Object.prototype.hasOwnProperty.call(dateObject, key)) {
+                const e = dateObject[key];
+                this.variablesCache['time:' + key] = e;
+            }
+        }
+
+        this.event.updateVariables();
+        echoLiveSystem.hook.trigger('echomoji_update_variables', {
+            unit: this,
+            variables: this.variablesCache,
+        });
+
+        return this.variablesCache;
+    }
+
+    fillTextVariables(text) {
+        if (text.search(/\{\{\{(.*?)\}\}\}/) !== -1) {
+            this.updateVariables();
+            return EchoLiveTools.replacePlaceholders(text, this.variablesCache, 'triple');
+        } else {
+            return text;
+        }
     }
 }

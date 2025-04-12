@@ -170,6 +170,10 @@ const lang_zho_Hans = {
                 random_weight_reset_negative_rate: {
                     _title: "随机权重负向重置比率",
                     _description: "被抽中消息的权重按消息总数比率重置为负值。权重小于等于 0 的消息无法被抽中。<br>注意：当此值大于 0.5 时，可能会出现消息被抽完的情况。"
+                },
+                allow_variable: {
+                    _title: "允许使用变量",
+                    _description: "启用后，可以在消息文本中通过变量占位符来使用变量。<br>变量占位符的格式为 <code>{{{变量名}}}</code>、<code>{{{变量名\\|默认值}}}</code>。当变量不存在时将使用默认值，如未指定默认值则保留占位符原文。"
                 }
             },
             message_in_effect: {

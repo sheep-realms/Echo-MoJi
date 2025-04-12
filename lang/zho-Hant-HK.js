@@ -170,6 +170,10 @@ const lang_zho_Hant_HK = {
                 random_weight_reset_negative_rate: {
                     _title: "隨機權重負向重置比率",
                     _description: "被抽中消息的權重按消息總數比率重置為負值。權重小於等於 0 的消息無法被抽中。<br>注意：當此值大於 0.5 時，可能會出現消息被抽完的情況。"
+                },
+                allow_variable: {
+                    _title: "允許使用變量",
+                    _description: "啟用後，可以在消息文本中通過變量佔位符來使用變量。<br>變量佔位符的格式為 <code>{{{變量名}}}</code>、<code>{{{變量名\\|默認值}}}</code>。當變量不存在時將使用默認值，如未指定默認值則保留佔位符原文。"
                 }
             },
             message_in_effect: {
