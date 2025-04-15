@@ -11,15 +11,33 @@ const config = {
         "live_font_weight": "inherit"
     },
     "echomoji": {
-        "message": {
-            "duration": 10000
+        "style": {
+            "theme": "vanilla",
+            "theme_script_enable": false,
+            "text_color": "",
+            "background_color": "",
+            "font_size": "",
+            "font_weight": ""
         },
-        "print_effect": {
-            "name": "none",
+        "message": {
+            "duration": 10000,
+            "random_method": "weighted",
+            "random_weight_init": 1,
+            "random_weight_step": 1,
+            "random_weight_reset_negative_rate": 0.35,
+            "allow_variable": true
+        },
+        "message_in_effect": {
+            "name": "fade-in",
             "duration": 150,
             "scale": 1,
-            "timing_function_in": "ease-out",
-            "timing_function_out": "ease-out"
+            "timing_function": "ease-out"
+        },
+        "message_out_effect": {
+            "name": "fade-out",
+            "duration": 150,
+            "scale": 1,
+            "timing_function": "ease-in"
         }
     },
     "accessibility": {

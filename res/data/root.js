@@ -50,13 +50,27 @@ echoLiveSystem.registry.init([
             script: undefined
         }
     }, {
-        name: 'next_effect',
+        name: 'message_in_effect',
         unique_key: 'name',
-        sync: true,
         default_data: {
             name: undefined,
             value: undefined,
             hidden: false
+        }
+    }, {
+        name: 'message_out_effect',
+        unique_key: 'name',
+        default_data: {
+            name: undefined,
+            value: undefined,
+            hidden: false
+        }
+    }, {
+        name: 'random_method',
+        unique_key: 'name',
+        default_data: {
+            name: undefined,
+            value: undefined
         }
     }, {
         name: 'script',
@@ -79,9 +93,18 @@ echoLiveSystem.registry.init([
     }, {
         name: 'system'
     }, {
+        name: 'text_style',
+        unique_key: 'name',
+        default_data: {
+            name: undefined,
+            is_style: false,
+            custom_style: false,
+            class: undefined,
+            style: undefined
+        }
+    }, {
         name: 'timing_function',
         unique_key: 'name',
-        sync: true,
         default_data: {
             name: undefined,
             value: undefined

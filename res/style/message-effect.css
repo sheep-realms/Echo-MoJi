@@ -1,0 +1,191 @@
+/* ============================================================
+ * Echo-Live
+ * Github: https://github.com/sheep-realms/Echo-Live
+ * License: GNU General Public License 3.0
+ * ============================================================
+**/
+
+/* ============================================================
+ * Echo-MoJi
+ * Github: https://github.com/sheep-realms/Echo-MoJi
+ * License: GNU General Public License 3.0
+ * ============================================================
+ */
+
+
+:root {
+    --message-in-effect-speed: 250ms;
+    --message-in-effect-name: none;
+    --message-in-effect-scale: 1;
+    --message-in-effect-scale-calc: max(var(--message-in-effect-scale), 0);
+    --message-in-effect-timing-function: ease-out;
+    --message-out-effect-speed: 250ms;
+    --message-out-effect-name: none;
+    --message-out-effect-scale: 1;
+    --message-out-effect-scale-calc: max(var(--message-out-effect-scale), 0);
+    --message-out-effect-timing-function: ease-out;
+}
+
+#messager.message-in-effect {
+    animation-name: var(--message-in-effect-name);
+    animation-duration: var(--message-in-effect-speed);
+    animation-timing-function: var(--message-in-effect-timing-function);
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+}
+
+#messager.message-out-effect {
+    animation-name: var(--message-out-effect-name);
+    animation-duration: var(--message-out-effect-speed);
+    animation-timing-function: var(--message-out-effect-timing-function);
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+}
+
+/* 淡入 */
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* 淡出 */
+@keyframes fade-out {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* 从上方移入 */
+@keyframes move-from-up {
+    0% {
+        position: relative;
+        top: calc(-1em * var(--message-in-effect-scale));
+        opacity: 0;
+    }
+    100% {
+        position: relative;
+        top: 0em;
+        opacity: 1;
+    }
+}
+
+/* 从上方移出 */
+@keyframes move-to-up {
+    0% {
+        position: relative;
+        top: 0em;
+        opacity: 1;
+    }
+    100% {
+        position: relative;
+        top: calc(-1em * var(--message-in-effect-scale));
+        opacity: 0;
+    }
+}
+
+/* 从下方移入 */
+@keyframes move-from-down {
+    0% {
+        position: relative;
+        bottom: calc(-1em * var(--message-in-effect-scale));
+        opacity: 0;
+    }
+    100% {
+        position: relative;
+        bottom: 0em;
+        opacity: 1;
+    }
+}
+
+/* 从下方移出 */
+@keyframes move-to-down {
+    0% {
+        position: relative;
+        bottom: 0em;
+        opacity: 1;
+    }
+    100% {
+        position: relative;
+        bottom: calc(-1em * var(--message-in-effect-scale));
+        opacity: 0;
+    }
+}
+
+/* 从左侧移入 */
+@keyframes move-from-left {
+    0% {
+        position: relative;
+        left: calc(-1em * var(--message-in-effect-scale));
+        opacity: 0;
+    }
+    100% {
+        position: relative;
+        left: 0em;
+        opacity: 1;
+    }
+}
+
+/* 从左侧移出 */
+@keyframes move-to-left {
+    0% {
+        position: relative;
+        left: 0em;
+        opacity: 1;
+    }
+    100% {
+        position: relative;
+        left: calc(-1em * var(--message-in-effect-scale));
+        opacity: 0;
+    }
+}
+
+/* 从右侧移入 */
+@keyframes move-from-right {
+    0% {
+        position: relative;
+        right: calc(-1em * var(--message-in-effect-scale));
+        opacity: 0;
+    }
+    100% {
+        position: relative;
+        right: 0em;
+        opacity: 1;
+    }
+}
+
+/* 从右侧移出 */
+@keyframes move-to-right {
+    0% {
+        position: relative;
+        right: 0em;
+        opacity: 1;
+    }
+    100% {
+        position: relative;
+        right: calc(-1em * var(--message-in-effect-scale));
+        opacity: 0;
+    }
+}
+
+/* 聚焦 */
+@keyframes blur-in {
+    0% {
+        opacity: 0;
+        filter: blur(calc(1em * var(--message-in-effect-scale)));
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0em);
+    }
+}
+
+/* 失焦 */
+@keyframes blur-out {
+    0% {
+        opacity: 1;
+        filter: blur(0em);
+    }
+    100% {
+        opacity: 0;
+        filter: blur(calc(1em * var(--message-in-effect-scale)));
+    }
+}

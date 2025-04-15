@@ -9,3 +9,5 @@
 将 `echomoji.html` 作为浏览器源导入 OBS 场景中。
 
 您可以在浏览器中打开 `settings.html` 来调整配置，将导出的配置文件保存在 Echo-MoJi 根目录中，如果操作正确，会有覆盖提示。
+
+在 `message.js` 中修改跑马灯内容。

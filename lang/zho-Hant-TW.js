@@ -131,9 +131,21 @@ const lang_zho_Hant_TW = {
                     _title: "啟用跑馬燈主題指令碼",
                     _description: "一些高階效果可能需要啟用主題指令碼才能正常使用。目前所有預製主題均不包含指令碼。<br>指令碼中可以執行任意程式碼，請謹慎安裝需要您啟用指令碼的第三方主題。"
                 },
+                text_color: {
+                    _title: "文字顏色",
+                    _description: "跑馬燈的文字顏色，留空則使用主題設定。<br>支援 HEX、RGB、HSL 等顏色格式，例如 #66CCFF、rgb(102, 204, 255)。"
+                },
+                background_color: {
+                    _title: "背景顏色",
+                    _description: "跑馬燈的背景顏色，留空則使用主題設定。<br>支援格式同上。"
+                },
+                font_size: {
+                    _title: "字號",
+                    _description: "跑馬燈的字號，留空則使用主題設定。<br>支援 px、em、rem 等單位，例如 16px、1.5em。",
+                },
                 font_weight: {
-                    _title: "預設字重",
-                    _description: "跑馬燈的預設字重，可被主題的樣式設定或訊息格式覆蓋。"
+                    _title: "字重",
+                    _description: "跑馬燈的字重，留空則使用主題設定。"
                 }
             },
             message: {
@@ -142,11 +154,31 @@ const lang_zho_Hant_TW = {
                 duration: {
                     _title: "訊息持續時間",
                     _description: "每一條訊息顯示的時間。"
+                },
+                random_method: {
+                    _title: "訊息隨機方式",
+                    _description: "控制隨機抽取訊息的細節。<br>- 平均隨機：每條訊息的出現機率相同。<br>- 加權隨機：每條訊息的出現機率與其權重成正比，每次抽取將為所有未抽中的訊息增加權重，抽中的訊息重置權重。"
+                },
+                random_weight_init: {
+                    _title: "隨機權重初始值",
+                    _description: "每條訊息的初始權重。"
+                },
+                random_weight_step: {
+                    _title: "隨機權重步進值",
+                    _description: "每次抽取時未抽中的訊息的權重增加值。"
+                },
+                random_weight_reset_negative_rate: {
+                    _title: "隨機權重負向重置比率",
+                    _description: "被抽中訊息的權重按訊息總數比率重置為負值。權重小於等於 0 的訊息無法被抽中。<br>注意：當此值大於 0.5 時，可能會出現訊息被抽完的情況。"
+                },
+                allow_variable: {
+                    _title: "允許使用變數",
+                    _description: "啟用後，可以在訊息文字中透過變數佔位符來使用變數。<br>變數佔位符的格式為 <code>{{{變數名}}}</code>、<code>{{{變數名\\|預設值}}}</code>。當變數不存在時將使用預設值，如未指定預設值則保留佔位符原文。"
                 }
             },
-            next_effect: {
-                _title: "訊息切換動效",
-                _description: "切換訊息時所使用的動畫效果",
+            message_in_effect: {
+                _title: "訊息入場動效",
+                _description: "訊息進入時所使用的動畫效果",
                 name: {
                     _title: "動效名稱",
                     _description: "所使用的動效名稱。"
@@ -159,12 +191,28 @@ const lang_zho_Hant_TW = {
                     _title: "動效規模乘數",
                     _description: "動畫的運動幅度乘數。"
                 },
-                timing_function_in: {
-                    _title: "動效時間曲線（進入）",
+                timing_function: {
+                    _title: "動效時間曲線",
                     _description: "動畫在不同時間段的運動速度。"
+                }
+            },
+            message_out_effect: {
+                _title: "訊息離去動效",
+                _description: "訊息離去時所使用的動畫效果",
+                name: {
+                    _title: "動效名稱",
+                    _description: "所使用的動效名稱。"
                 },
-                timing_function_out: {
-                    _title: "動效時間曲線（離去）",
+                duration: {
+                    _title: "動效用時",
+                    _description: "播放動畫所需時間。"
+                },
+                scale: {
+                    _title: "動效規模乘數",
+                    _description: "動畫的運動幅度乘數。"
+                },
+                timing_function: {
+                    _title: "動效時間曲線",
                     _description: "動畫在不同時間段的運動速度。"
                 }
             }
@@ -272,12 +320,26 @@ const lang_zho_Hant_TW = {
             }
         }
     },
+    echomoji: {
+        init: "跑馬燈已載入！"
+    },
     effect: {
-        next: {
-            blur: "聚焦",
-            fade: "淡出淡入",
+        message_in: {
+            blur_in: "聚焦",
+            fade_in: "淡入",
             move_from_down: "從下方移入",
             move_from_up: "從上方移入",
+            move_from_left: "從左側移入",
+            move_from_right: "從右側移入",
+            none: "無"
+        },
+        message_out: {
+            blur_out: "失焦",
+            fade_out: "淡出",
+            move_to_down: "從下方移出",
+            move_to_up: "從上方移出",
+            move_to_left: "從左側移出",
+            move_to_right: "從右側移出",
             none: "無"
         }
     },
@@ -368,6 +430,10 @@ const lang_zho_Hant_TW = {
     page_title: {
         echomoji: "Echo MoJi",
         settings: "Echo MoJi 配置檔案編輯器"
+    },
+    random_method: {
+        average: "平均隨機",
+        weighted: "加權隨機"
     },
     settings: {
         unknown_config_type: "暫不支援修改此配置",

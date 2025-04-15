@@ -62,6 +62,21 @@ const db_config_define = [
         default: false,
         created: 1
     }, {
+        name: 'echomoji.style.text_color',
+        type: 'string',
+        default: '',
+        created: 1
+    }, {
+        name: 'echomoji.style.background_color',
+        type: 'string',
+        default: '',
+        created: 1
+    }, {
+        name: 'echomoji.style.font_size',
+        type: 'string',
+        default: '38px',
+        created: 1
+    }, {
         name: 'echomoji.style.font_weight',
         type: 'string',
         default: 'inherit',
@@ -84,11 +99,68 @@ const db_config_define = [
             step: 500
         }
     }, {
-        name: 'echomoji.next_effect',
+        name: 'echomoji.message.random_method',
+        type: 'string',
+        default: 'weighted',
+        created: 1,
+        attribute: {
+            datalist: []
+        }
+    }, {
+        name: 'echomoji.message.random_weight_init',
+        type: 'number',
+        default: 1,
+        created: 1,
+        attribute: {
+            min: 1
+        },
+        conditions: [
+            {
+                name: 'echomoji.message.random_method',
+                value: 'weighted'
+            }
+        ]
+    }, {
+        name: 'echomoji.message.random_weight_step',
+        type: 'number',
+        default: 1,
+        created: 1,
+        attribute: {
+            min: 0
+        },
+        conditions: [
+            {
+                name: 'echomoji.message.random_method',
+                value: 'weighted'
+            }
+        ]
+    }, {
+        name: 'echomoji.message.random_weight_reset_negative_rate',
+        type: 'number',
+        default: 0.35,
+        created: 1,
+        attribute: {
+            min: 0,
+            max: 1,
+            step: 0.05
+        },
+        conditions: [
+            {
+                name: 'echomoji.message.random_method',
+                value: 'weighted'
+            }
+        ]
+    }, {
+        name: 'echomoji.message.allow_variable',
+        type: 'boolean',
+        default: true,
+        created: 1
+    }, {
+        name: 'echomoji.message_in_effect',
         type: 'object',
         created: 1
     }, {
-        name: 'echomoji.next_effect.name',
+        name: 'echomoji.message_in_effect.name',
         type: 'string',
         default: 'fade',
         created: 1,
@@ -96,7 +168,7 @@ const db_config_define = [
             datalist: []
         }
     }, {
-        name: 'echomoji.next_effect.duration',
+        name: 'echomoji.message_in_effect.duration',
         type: 'number',
         default: 150,
         created: 1,
@@ -106,7 +178,7 @@ const db_config_define = [
             step: 50
         }
     }, {
-        name: 'echomoji.next_effect.scale',
+        name: 'echomoji.message_in_effect.scale',
         type: 'number',
         default: 1,
         created: 1,
@@ -115,7 +187,7 @@ const db_config_define = [
             step: 0.25
         }
     }, {
-        name: 'echomoji.next_effect.timing_function_in',
+        name: 'echomoji.message_in_effect.timing_function',
         type: 'string',
         default: 'ease-out',
         created: 1,
@@ -123,9 +195,40 @@ const db_config_define = [
             datalist: []
         }
     }, {
-        name: 'echomoji.next_effect.timing_function_out',
+        name: 'echomoji.message_out_effect',
+        type: 'object',
+        created: 1
+    }, {
+        name: 'echomoji.message_out_effect.name',
         type: 'string',
-        default: 'ease-out',
+        default: 'fade',
+        created: 1,
+        attribute: {
+            datalist: []
+        }
+    }, {
+        name: 'echomoji.message_out_effect.duration',
+        type: 'number',
+        default: 150,
+        created: 1,
+        unit: 'ms',
+        attribute: {
+            min: 0,
+            step: 50
+        }
+    }, {
+        name: 'echomoji.message_out_effect.scale',
+        type: 'number',
+        default: 1,
+        created: 1,
+        attribute: {
+            min: 0,
+            step: 0.25
+        }
+    }, {
+        name: 'echomoji.message_out_effect.timing_function',
+        type: 'string',
+        default: 'ease-in',
         created: 1,
         attribute: {
             datalist: []

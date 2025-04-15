@@ -3,6 +3,13 @@
     padding: 0;
 }
 
+:root {
+    --moji-color: #909399;
+    --moji-background-color: #E6E6E6;
+    --moji-font-size: 38px;
+    --moji-font-weight: 400;
+}
+
 body {
     display: flex;
     height: 100vh;
@@ -11,16 +18,18 @@ body {
     justify-content: left;
     box-sizing: border-box;
     padding: 0 1.5em;
-    background-color: #E6E6E6;
+    background-color: var(--moji-background-color);
+    overflow: hidden;
 }
 
 #messager {
     font-family: '思源黑体';
-    color: #909399;
-    font-size: 38px;
+    color: var(--moji-color);
+    font-size: var(--moji-font-size);
     opacity: 1;
     transition: opacity .15s;
-    font-weight: 400;
+    font-weight: var(--moji-font-weight);
+    position: relative;
 }
 
 #messager.hide {

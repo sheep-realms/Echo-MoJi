@@ -5,6 +5,13 @@
  * ============================================================
  */
 
+/* ============================================================
+ * Echo-MoJi
+ * Github: https://github.com/sheep-realms/Echo-MoJi
+ * License: GNU General Public License 3.0
+ * ============================================================
+ */
+
 
 "use strict";
 
@@ -163,14 +170,24 @@ const configDataList = [
         key: 'global.color_scheme'
     }, {
         data: arr => {
-            echoLiveSystem.registry.forEach('next_effect', e => {
+            echoLiveSystem.registry.forEach('message_in_effect', e => {
                 if (!e?.hidden || config.advanced.settings.display_hidden_option) arr.push({
-                    title: $t(`effect.next.${ e.name }`),
+                    title: $t(`effect.message_in.${ e.name }`),
                     value: e.value
                 });
             });
         },
-        key: 'echomoji.next_effect.name'
+        key: 'echomoji.message_in_effect.name'
+    }, {
+        data: arr => {
+            echoLiveSystem.registry.forEach('message_out_effect', e => {
+                if (!e?.hidden || config.advanced.settings.display_hidden_option) arr.push({
+                    title: $t(`effect.message_out.${ e.name }`),
+                    value: e.value
+                });
+            });
+        },
+        key: 'echomoji.message_out_effect.name'
     }, {
         data: arr => {
             echoLiveSystem.registry.forEach('timing_function', e => {
@@ -181,8 +198,8 @@ const configDataList = [
             });
         },
         key: [
-            'echomoji.next_effect.timing_function_in',
-            'echomoji.next_effect.timing_function_out'
+            'echomoji.message_in_effect.timing_function',
+            'echomoji.message_out_effect.timing_function'
         ]
     }, {
         data: arr => {
@@ -204,6 +221,16 @@ const configDataList = [
             });
         },
         key: 'echomoji.style.font_weight'
+    }, {
+        data: arr => {
+            echoLiveSystem.registry.forEach('random_method', e => {
+                arr.push({
+                    title: $t(`random_method.${ e.name }`, {}, ''),
+                    value: e.value
+                });
+            });
+        },
+        key: 'echomoji.message.random_method'
     }
 ];
 
@@ -1120,6 +1147,14 @@ $(document).on('click', '.settings-switch', function() {
 
     configChangeCheck();
 
+    setTimeout(function() {
+        checkConfigCondition(name);
+    }, 10);
+});
+
+$(document).on('change', '.settings-item .fh-input-select-component', function() {
+    const $parent = $(this).parents('.settings-item').eq(0);
+    const name = $parent.data('id');
     setTimeout(function() {
         checkConfigCondition(name);
     }, 10);
