@@ -103,6 +103,16 @@ echoLiveSystem.registry.init([
             style: undefined
         }
     }, {
+        name: 'theme',
+        unique_key: 'name',
+        default_data: {
+            name: undefined,
+            title: 'missingno',
+            description: '',
+            style: undefined,
+            script: undefined
+        }
+    }, {
         name: 'timing_function',
         unique_key: 'name',
         default_data: {

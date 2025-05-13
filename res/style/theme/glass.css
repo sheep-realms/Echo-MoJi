@@ -1,0 +1,10 @@
+:root {
+    --moji-color: #FFF;
+}
+
+body {
+    box-sizing: border-box;
+    background-color: transparent;
+    background-image: linear-gradient(to top, #000 0%, transparent 100%);
+    text-shadow: 0 0 0.075em #000, 0 0 0.075em #000, 0 0 0.075em #000, 0 0 0.075em #000;
+}

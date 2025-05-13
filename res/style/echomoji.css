@@ -4,8 +4,8 @@
 }
 
 :root {
-    --moji-color: #909399;
-    --moji-background-color: #E6E6E6;
+    --moji-color: #000;
+    --moji-background-color: transparent;
     --moji-font-size: 38px;
     --moji-font-weight: 400;
 }

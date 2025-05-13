@@ -153,7 +153,7 @@ const configDataList = [
         key: 'global.language'
     }, {
         data: arr => {
-            echoLiveSystem.registry.forEach('moji_theme', e => {
+            echoLiveSystem.registry.forEach('theme', e => {
                 arr.push({
                     title: e.title,
                     value: e.name
