@@ -85,6 +85,11 @@ const db_config_define = [
             datalist: []
         }
     }, {
+        name: 'echomoji.style.font_family',
+        type: 'string',
+        default: "'思源黑体'",
+        created: 1
+    }, {
         name: 'echomoji.message',
         type: 'object',
         created: 1

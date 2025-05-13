@@ -8,6 +8,7 @@
     --moji-background-color: transparent;
     --moji-font-size: 38px;
     --moji-font-weight: 400;
+    --moji-font-family: '思源黑体';
 }
 
 body {
@@ -23,7 +24,7 @@ body {
 }
 
 #messager {
-    font-family: '思源黑体';
+    font-family: var(--moji-font-family);
     color: var(--moji-color);
     font-size: var(--moji-font-size);
     opacity: 1;

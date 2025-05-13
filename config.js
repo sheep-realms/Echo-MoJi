@@ -14,7 +14,8 @@ const config = {
             "text_color": "",
             "background_color": "",
             "font_size": "",
-            "font_weight": ""
+            "font_weight": "",
+            "font_family": "'思源黑体'"
         },
         "message": {
             "duration": 10000,

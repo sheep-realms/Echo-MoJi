@@ -146,6 +146,10 @@ const lang_zho_Hant_TW = {
                 font_weight: {
                     _title: "字重",
                     _description: "跑馬燈的字重，留空則使用主題設定。"
+                },
+                font_family: {
+                    _title: "字型",
+                    _description: "跑馬燈的字型。<br>多個字型用空格分隔，包含空格的字型名稱請用引號<code>'</code>包裹。"
                 }
             },
             message: {
