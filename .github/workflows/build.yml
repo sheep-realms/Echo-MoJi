@@ -32,3 +32,5 @@ jobs:
       with:
         name: echo-moji-build-pack-${{ github.run_number }}
         path: echo-moji-build-${{ github.run_number }}.zip
+
+# GitHub 抽什么风不显示这个工作流
