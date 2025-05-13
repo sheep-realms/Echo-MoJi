@@ -1,7 +1,7 @@
 const APP_META = {
     name: 'Echo-MoJi',
     version: '1.0.0',
-    isBeta: true
+    isBeta: false
 };
 
 if (typeof window !== 'undefined') {
