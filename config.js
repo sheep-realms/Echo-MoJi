@@ -2,17 +2,14 @@ const config = {
     "data_version": 1,
     "global": {
         "language": "zho-Hans",
-        "theme": "vanilla",
-        "theme_script_enable": false,
         "color_scheme": "auto",
         "touchscreen_layout": false,
         "controller_layout_reverse": false,
-        "thin_scrollbar": false,
-        "live_font_weight": "inherit"
+        "thin_scrollbar": false
     },
     "echomoji": {
         "style": {
-            "theme": "vanilla",
+            "theme": "void",
             "theme_script_enable": false,
             "text_color": "",
             "background_color": "",

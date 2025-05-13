@@ -19,6 +19,8 @@ class EchoMoJi {
         this.variablesCache = {};
         this.event          = {
             send: function() {},
+            themeScriptLoad: function() {},
+            themeScriptUnload: function() {},
             updateVariables: function() {}
         };
 
@@ -29,6 +31,8 @@ class EchoMoJi {
      * 初始化
      */
     init() {
+        this.theme = echoLiveSystem.registry.getRegistryArray('theme');
+
         for (let i = 0; i < this.messages.length; i++) {
             this.messagesWeight.push({
                 index: i,
@@ -300,5 +304,54 @@ class EchoMoJi {
         } else {
             return text;
         }
+    }
+
+    /**
+     * 修改主题样式地址
+     * @param {String} url 样式文件地址
+     */
+    setThemeStyleUrl(url) {
+        if ($('#echo-moji-theme').attr('href') === url) return url;
+        $('#echo-moji-theme').attr('href', url);
+        return url;
+    }
+
+    /**
+     * 查找主题
+     * @param {String} name 主题ID
+     * @returns {Object} 主题数据
+     */
+    findTheme(name) {
+        return this.theme.find((e) => e.name === name);
+    }
+
+    /**
+     * 设置主题
+     * @param {String} name 主题ID
+     * @returns {String} 主题入口样式文件URL
+     */
+    setTheme(name) {
+        const theme = this.findTheme(name);
+        if (theme === undefined) return;
+
+        this.event.themeScriptUnload();
+        this.event.themeScriptLoad      = function() {};
+        this.event.themeScriptUnload    = function() {};
+        $('script.echo-moji-theme-script').remove();
+
+        this.setThemeStyleUrl(theme.style);
+
+        if (this.themeScriptEnable && typeof theme.script == 'object') {
+            theme.script.forEach(e => {
+                let s   = document.createElement("script");
+                s.src   = e;
+                s.class = 'echo-moji-theme-script';
+                document.head.appendChild(s);
+            });
+        }
+
+        this.event.themeScriptLoad();
+
+        return theme.style;
     }
 }

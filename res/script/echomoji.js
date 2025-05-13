@@ -24,6 +24,8 @@ if (config.echomoji?.message_out_effect?.timing_function) $('html').css('--messa
 
 
 let echomoji = new EchoMoJi(config, db_message);
+let urlTheme = EchoLiveTools.getUrlParam('theme');
+echomoji.setTheme(urlTheme || config.echomoji.style.theme);
 
 let messageCache = '';
 

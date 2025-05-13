@@ -1,0 +1,10 @@
+:root {
+    --moji-color: #000;
+    --moji-background-color: #FFF;
+}
+
+body {
+    box-sizing: border-box;
+    border: #888888 8px solid;
+    border-radius: 32px;
+}
