@@ -298,6 +298,7 @@ class EchoMoJi {
     }
 
     fillTextVariables(text) {
+        if (!this.config.echomoji.message.allow_variable) return text;
         if (text.search(/\{\{\{(.*?)\}\}\}/) !== -1) {
             this.updateVariables();
             return EchoLiveTools.replacePlaceholders(text, this.variablesCache, 'triple');
