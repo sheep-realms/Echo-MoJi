@@ -146,6 +146,10 @@ const lang_zho_Hans = {
                 font_weight: {
                     _title: "字重",
                     _description: "跑马灯的字重，留空则使用主题设定。"
+                },
+                font_family: {
+                    _title: "字体",
+                    _description: "跑马灯的字体。<br>多个字体用空格分隔，包含空格的字体名称请用引号<code>'</code>包裹。"
                 }
             },
             message: {

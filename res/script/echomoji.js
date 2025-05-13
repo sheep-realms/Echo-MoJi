@@ -11,6 +11,7 @@ if (config.echomoji?.style?.text_color) $('html').css('--moji-color', config.ech
 if (config.echomoji?.style?.background_color) $('html').css('--moji-background-color', config.echomoji.style.background_color);
 if (config.echomoji?.style?.font_size) $('html').css('--moji-font-size', config.echomoji.style.font_size);
 if (config.echomoji?.style?.font_weight) $('html').css('--moji-font-weight', config.echomoji.style.font_weight);
+if (config.echomoji?.style?.font_family) $('html').css('--moji-font-family', config.echomoji.style.font_family);
 
 // 设置动画样式
 if (config.echomoji?.message_in_effect?.name) $('html').css('--message-in-effect-name', config.echomoji.message_in_effect.name);
