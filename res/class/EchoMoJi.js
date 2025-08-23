@@ -18,6 +18,7 @@ class EchoMoJi {
         this.hidden                     = true;
         this.timer                      = -1;
         this.variablesCache             = {};
+        this.lastDate                   = new Date().toDateString();
         this.event                      = {
             send: function() {},
             themeScriptLoad: function() {},
@@ -63,6 +64,14 @@ class EchoMoJi {
         });
 
         this.checkVisibility();
+
+        setInterval(() => {
+            const currentDate = new Date().toDateString();
+            if (currentDate !== this.lastDate) {
+                this.lastDate = currentDate;
+                this.loadMessages();
+            }
+        }, 1000 * 60);
     }
 
     loadMessages() {
