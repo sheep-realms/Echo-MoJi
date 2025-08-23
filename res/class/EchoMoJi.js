@@ -7,17 +7,18 @@
 
 class EchoMoJi {
     constructor(config, messages = []) {
-        this.config = config;
-        this.messages = messages;
-        this.messagesWeight = [];
-        this.messageWeightResetValue = -1;
-        this.lastIndex = -1;
-        this.inQueue = false;
-        this.messageQueue = [];
-        this.hidden = true;
-        this.timer = -1;
-        this.variablesCache = {};
-        this.event          = {
+        this.config                     = config;
+        this.originalMessage            = messages;
+        this.messages                   = messages;
+        this.messagesWeight             = [];
+        this.messageWeightResetValue    = -1;
+        this.lastIndex                  = -1;
+        this.inQueue                    = false;
+        this.messageQueue               = [];
+        this.hidden                     = true;
+        this.timer                      = -1;
+        this.variablesCache             = {};
+        this.event                      = {
             send: function() {},
             themeScriptLoad: function() {},
             themeScriptUnload: function() {},
@@ -32,6 +33,8 @@ class EchoMoJi {
      */
     init() {
         this.theme = echoLiveSystem.registry.getRegistryArray('theme');
+
+        this.loadMessages();
 
         for (let i = 0; i < this.messages.length; i++) {
             this.messagesWeight.push({
@@ -60,6 +63,33 @@ class EchoMoJi {
         });
 
         this.checkVisibility();
+    }
+
+    loadMessages() {
+        this.messages = [];
+        this.messagesWeight = [];
+        let msg = JSON.parse(JSON.stringify(this.originalMessage));
+        let output = [];
+
+        output.push(
+            ...msg.filter(e => (typeof e === 'string') || (typeof e === 'object' && !Array.isArray(e) && e?.type !== 'pack'))
+        );
+
+        let packs = msg.filter(e => typeof e === 'object' && !Array.isArray(e) && e?.type === 'pack');
+
+        try {
+            packs.forEach(e => {
+                if (this.checkPackConditions(e?.conditions)) output.push(...e.content);
+            });
+        } catch (_) {}
+
+        this.messages = output;
+    }
+
+    checkPackConditions(conditions) {
+        if (typeof conditions !== 'object') return true;
+        const c = new EchoMoJiPackConditionsChecker(conditions);
+        return c.check();
     }
 
     /**
@@ -278,6 +308,10 @@ class EchoMoJi {
         this.event.send(dom);
     }
 
+    /**
+     * 更新变量
+     * @returns {Object} 变量列表
+     */
     updateVariables() {
         const dateObject = EchoLiveTools.formatDateToObject();
 
@@ -297,6 +331,11 @@ class EchoMoJi {
         return this.variablesCache;
     }
 
+    /**
+     * 替换变量占位符
+     * @param {String} text 文本
+     * @returns {String} 文本
+     */
     fillTextVariables(text) {
         if (!this.config.echomoji.message.allow_variable) return text;
         if (text.search(/\{\{\{(.*?)\}\}\}/) !== -1) {
@@ -354,5 +393,82 @@ class EchoMoJi {
         this.event.themeScriptLoad();
 
         return theme.style;
+    }
+}
+
+
+
+/**
+ * 谓词
+ */
+class EchoMoJiPackCondition {
+    constructor() {}
+
+    /**
+     * 当前日期
+     * @param {Object} data 谓词
+     * @param {String|Object|Number} data.date 日期
+     * @param {String|Number} data.date.start 开始日期
+     * @param {String|Number} data.date.end 结束日期
+     * @returns {Boolean} 结果
+     */
+    static date(data) {
+        function _formatDate(input) {
+            if (typeof input !== 'string') return input;
+            input = input.trim();
+
+            const match = input.match(/^(\d{1,2})[/-](\d{1,2})$/);
+
+            const currentYear = new Date().getFullYear();
+
+            if (match) {
+                let month = parseInt(match[1], 10);
+                let day = parseInt(match[2], 10);
+                return `${currentYear}/${month}/${day}`;
+            }
+
+            return input;
+        }
+
+        const now = new Date();
+        if (typeof data.date === 'string' || typeof data.date === 'number') {
+            const checkDate = new Date(_formatDate(data.date));
+            if (Number.isNaN(checkDate.getTime())) return false;
+            if (
+                checkDate.getFullYear() === now.getFullYear()   &&
+                checkDate.getMonth()    === now.getMonth()      &&
+                checkDate.getDate()     === now.getDate()
+            ) return true;
+        } else if (typeof data.date === 'object' && !Array.isArray(data.date)) {
+            const startDate = new Date(_formatDate(data.date.start));
+            const endDate   = new Date(_formatDate(data.date.end));
+            if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) return false;
+            if (startDate.getTime() > endDate.getTime()) return false;
+            if (
+                startDate.getTime() <= now.getTime() &&
+                endDate.getTime()   >= now.getTime()
+            ) return true;
+        }
+    }
+}
+
+
+
+/**
+ * 谓词检查器
+ */
+class EchoMoJiPackConditionsChecker {
+    constructor(conditions) {
+        this.conditions = conditions;
+    }
+
+    check() {
+        for (let i = 0; i < this.conditions.length; i++) {
+            const e = this.conditions[i];
+            if (typeof EchoMoJiPackCondition[e.condition] === 'function') {
+                if (!EchoMoJiPackCondition[e.condition](e)) return false
+            }
+        }
+        return true;
     }
 }
