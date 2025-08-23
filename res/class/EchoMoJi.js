@@ -9,7 +9,7 @@ class EchoMoJi {
     constructor(config, messages = []) {
         this.config                     = config;
         this.originalMessage            = messages;
-        this.messages                   = messages;
+        this.messages                   = [];
         this.messagesWeight             = [];
         this.messageWeightResetValue    = -1;
         this.lastIndex                  = -1;
