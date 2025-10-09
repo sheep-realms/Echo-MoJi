@@ -1,7 +1,7 @@
 const config = {
     "data_version": 1,
     "global": {
-        "language": "zho-Hans",
+        "language": "zho-Hant-TW",
         "color_scheme": "auto",
         "touchscreen_layout": false,
         "controller_layout_reverse": false,

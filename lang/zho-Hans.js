@@ -125,7 +125,7 @@ const lang_zho_Hans = {
                 _description: "设置跑马灯的样式",
                 theme: {
                     _title: "跑马灯主题",
-                    _description: "留空则使用全局主题。为了主题样式的表现正常，请在 OBS 选中跑马灯，右键，在弹出菜单中找到 “混合方式”，选择 “关闭 sRGB”。"
+                    _description: "为了主题样式的表现正常，请在 OBS 选中跑马灯，右键，在弹出菜单中找到 “混合方式”，选择 “关闭 sRGB”。"
                 },
                 theme_script_enable: {
                     _title: "启用跑马灯主题脚本",
