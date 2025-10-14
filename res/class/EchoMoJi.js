@@ -416,13 +416,13 @@ class EchoMoJiPackCondition {
     /**
      * 或运算
      * @param {Objectt} data 谓词
-     * @param {Array<Object>} data.conditions 谓词列表
+     * @param {Array<Object>} data.terms 谓词列表
      * @returns 
      */
     static any_of(data) {
-        if (!Array.isArray(data.conditions)) return false;
-        for (let i = 0; i < data.conditions.length; i++) {
-            const e = data.conditions[i];
+        if (!Array.isArray(data.terms)) return false;
+        for (let i = 0; i < data.terms.length; i++) {
+            const e = data.terms[i];
             if (typeof EchoMoJiPackCondition[e.condition] === 'function') {
                 if (EchoMoJiPackCondition[e.condition](e)) return true
             }
