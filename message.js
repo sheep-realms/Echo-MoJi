@@ -18,7 +18,7 @@ const db_message = [
         type: 'pack',
         conditions: [
             {
-                condition: 'date',
+                condition: 'date_check',
                 date: '6/1'
             }
         ],

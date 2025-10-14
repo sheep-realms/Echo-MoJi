@@ -414,6 +414,23 @@ class EchoMoJiPackCondition {
     constructor() {}
 
     /**
+     * 与运算
+     * @param {Objectt} data 谓词
+     * @param {Array<Object>} data.terms 谓词列表
+     * @returns 
+     */
+    static all_of(data) {
+        if (!Array.isArray(data.terms)) return false;
+        for (let i = 0; i < data.terms.length; i++) {
+            const e = data.terms[i];
+            if (typeof EchoMoJiPackCondition[e.condition] === 'function') {
+                if (!EchoMoJiPackCondition[e.condition](e)) return false
+            }
+        }
+        return true;
+    }
+
+    /**
      * 或运算
      * @param {Objectt} data 谓词
      * @param {Array<Object>} data.terms 谓词列表
@@ -438,7 +455,7 @@ class EchoMoJiPackCondition {
      * @param {String|Number} data.date.end 结束日期
      * @returns {Boolean} 结果
      */
-    static date(data) {
+    static date_check(data) {
         function _formatDate(input) {
             if (typeof input !== 'string') return input;
             input = input.trim();
