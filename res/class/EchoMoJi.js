@@ -483,14 +483,49 @@ class EchoMoJiPackCondition {
                 checkDate.getDate()     === now.getDate()
             ) return true;
         } else if (typeof data.date === 'object' && !Array.isArray(data.date)) {
-            const startDate = new Date(_formatDate(data.date.start));
-            const endDate   = new Date(_formatDate(data.date.end));
+            const startDate = new Date(_formatDate(data.date.start || 0));
+            const endDate   = new Date(_formatDate(data.date.end || 9e13));
             if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) return false;
             if (startDate.getTime() > endDate.getTime()) return false;
             if (
                 startDate.getTime() <= now.getTime() &&
                 endDate.getTime()   >= now.getTime()
             ) return true;
+        }
+    }
+
+    /**
+     * 当前星期（从星期日开始）
+     * @param {Object} data 谓词
+     * @param {String|Object|Number} data.weekday 星期
+     * @param {String|Number} data.weekday.start 开始星期
+     * @param {String|Number} data.weekday.end 结束星期
+     * @returns {Boolean} 结果
+     */
+    static weekday_check(data) {
+        const now = new Date();
+        const weekday = now.getDay();
+
+        if (typeof data.weekday === 'string' || typeof data.weekday === 'number') {
+            const v = parseInt(data.weekday, 10);
+            if (Number.isNaN(v)) return false;
+            const w = ((v % 7) + 7) % 7;
+            if (w === weekday) return true;
+        } else if (typeof data.weekday === 'object' && !Array.isArray(data.weekday)) {
+            if (data.weekday.start === undefined || data.weekday.end === undefined) return false;
+            let s = parseInt(data.weekday.start, 10) || 0;
+            let e = parseInt(data.weekday.end, 10) || 6;
+            if (Number.isNaN(s) || Number.isNaN(e)) return false;
+
+            s = ((s % 7) + 7) % 7;
+            e = ((e % 7) + 7) % 7;
+
+            if (s <= e) {
+                if (weekday >= s && weekday <= e) return true;
+            } else {
+                if (weekday >= s || weekday <= e) return true;
+            }
+            return false;
         }
     }
 }
