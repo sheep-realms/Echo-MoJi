@@ -414,6 +414,23 @@ class EchoMoJiPackCondition {
     constructor() {}
 
     /**
+     * 或运算
+     * @param {Objectt} data 谓词
+     * @param {Array<Object>} data.conditions 谓词列表
+     * @returns 
+     */
+    static any_of(data) {
+        if (!Array.isArray(data.conditions)) return false;
+        for (let i = 0; i < data.conditions.length; i++) {
+            const e = data.conditions[i];
+            if (typeof EchoMoJiPackCondition[e.condition] === 'function') {
+                if (EchoMoJiPackCondition[e.condition](e)) return true
+            }
+        }
+        return false;
+    }
+
+    /**
      * 当前日期
      * @param {Object} data 谓词
      * @param {String|Object|Number} data.date 日期
