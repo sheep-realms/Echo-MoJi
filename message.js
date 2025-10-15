@@ -14,4 +14,16 @@ const db_message = [
             '直到队列结束',
         ]
     },
+    {
+        type: 'pack',
+        conditions: [
+            {
+                condition: 'date_check',
+                date: '6/1'
+            }
+        ],
+        content: [
+            '这是一条只会在儿童节出现的消息'
+        ]
+    },
 ];
