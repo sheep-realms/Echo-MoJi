@@ -80,17 +80,22 @@ class EchoMoJi {
         let msg = JSON.parse(JSON.stringify(this.originalMessage));
         let output = [];
 
-        output.push(
-            ...msg.filter(e => (typeof e === 'string') || (typeof e === 'object' && !Array.isArray(e) && e?.type !== 'pack'))
-        );
+        const _getMessages = (msg2) => {
+            output.push(
+                ...msg2.filter(e => (typeof e === 'string') || (typeof e === 'object' && !Array.isArray(e) && e?.type !== 'pack'))
+            );
 
-        let packs = msg.filter(e => typeof e === 'object' && !Array.isArray(e) && e?.type === 'pack');
+            let packs = msg2.filter(e => typeof e === 'object' && !Array.isArray(e) && e?.type === 'pack');
+            if (packs.length === 0) return;
 
-        try {
-            packs.forEach(e => {
-                if (this.checkPackConditions(e?.conditions)) output.push(...e.content);
-            });
-        } catch (_) {}
+            try {
+                packs.forEach(e => {
+                    if (this.checkPackConditions(e?.conditions)) _getMessages(e.content);
+                });
+            } catch (_) {}
+        }
+
+        _getMessages(msg);
 
         this.messages = output;
     }

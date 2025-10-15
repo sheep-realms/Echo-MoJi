@@ -76,6 +76,10 @@ Echo-MoJi 的富文本格式组件复用了 [Echo-Live](https://github.com/sheep
 
 组合包会设定一个或多个谓词，当所有谓词都通过检查，组合包中的消息才会被载入。
 
+组合包中的 `conditions` 字段定义了谓词列表，谓词通过检查则会将 `centent` 字段中的消息载入。
+
+`centent` 字段支持所有消息格式，包括组合包。
+
 ``` json
 {
     "type": "pack",
@@ -90,6 +94,8 @@ Echo-MoJi 的富文本格式组件复用了 [Echo-Live](https://github.com/sheep
     ]
 }
 ```
+
+关于谓词的说明请见下文。
 
 
 ### 变量
@@ -130,7 +136,11 @@ Echo-MoJi 的富文本格式组件复用了 [Echo-Live](https://github.com/sheep
 | `time:isPM` | 是下午，布尔值。 |
 | `time:AMorPM` | 上午或下午，`am` 或 `pm`。 |
 
+
 ### 谓词
+
+谓词用于判定某些对象或参数是否满足某种特性或条件。
+
 
 #### `all_of`
 
@@ -169,6 +179,7 @@ Echo-MoJi 的富文本格式组件复用了 [Echo-Live](https://github.com/sheep
 
 - `condition`：`random_chance`
 - `chance`：成功率，数字。
+
 
 #### `weekday_check`
 
