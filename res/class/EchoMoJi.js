@@ -20,13 +20,12 @@ class EchoMoJi {
         this.variablesCache             = {};
         this.lastDate                   = new Date().toDateString();
         this.event                      = {
+            load: function() {},
             send: function() {},
             themeScriptLoad: function() {},
             themeScriptUnload: function() {},
             updateVariables: function() {}
         };
-
-        this.init();
     }
 
     /**
@@ -98,6 +97,8 @@ class EchoMoJi {
         _getMessages(msg);
 
         this.messages = output;
+
+        this.event.load(this.messages);
     }
 
     checkPackConditions(conditions) {

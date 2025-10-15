@@ -25,10 +25,14 @@ if (config.echomoji?.message_out_effect?.timing_function) $('html').css('--messa
 
 
 let echomoji = new EchoMoJi(config, db_message);
-let urlTheme = EchoLiveTools.getUrlParam('theme');
-echomoji.setTheme(urlTheme || config.echomoji.style.theme);
 
 let messageCache = '';
+
+echomoji.on('load', function(messages) {
+    translator.ready(() => {
+        $('#messager').text($t('echomoji.messages_loaded', { n: messages.length }));
+    });
+});
 
 echomoji.on('send', function(message) {
     messageCache = message;
@@ -45,3 +49,7 @@ $(document).on('animationend', '#messager.message-out-effect', function() {
 $(document).on('animationend', '#messager.message-in-effect', function() {
     $('#messager').removeClass('message-in-effect');
 });
+
+echomoji.init();
+let urlTheme = EchoLiveTools.getUrlParam('theme');
+echomoji.setTheme(urlTheme || config.echomoji.style.theme);

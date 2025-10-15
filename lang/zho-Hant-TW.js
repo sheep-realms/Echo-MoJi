@@ -325,7 +325,8 @@ const lang_zho_Hant_TW = {
         }
     },
     echomoji: {
-        init: "跑馬燈已載入！"
+        init: "跑馬燈已就緒！正在讀取訊息...",
+        messages_loaded: "已載入 {n} 條訊息！"
     },
     effect: {
         message_in: {

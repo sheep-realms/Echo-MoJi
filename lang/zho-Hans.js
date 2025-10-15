@@ -325,7 +325,8 @@ const lang_zho_Hans = {
         }
     },
     echomoji: {
-        init: "跑马灯已载入！"
+        init: "跑马灯已就绪！正在读取消息...",
+        messages_loaded: "已载入 {n} 条消息！"
     },
     effect: {
         message_in: {
