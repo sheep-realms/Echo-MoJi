@@ -421,13 +421,8 @@ class EchoMoJiPackCondition {
      */
     static all_of(data) {
         if (!Array.isArray(data.terms)) return false;
-        for (let i = 0; i < data.terms.length; i++) {
-            const e = data.terms[i];
-            if (typeof EchoMoJiPackCondition[e.condition] === 'function') {
-                if (!EchoMoJiPackCondition[e.condition](e)) return false
-            }
-        }
-        return true;
+        const c = new EchoMoJiPackConditionsChecker(data.terms);
+        return c.check();
     }
 
     /**
@@ -438,13 +433,8 @@ class EchoMoJiPackCondition {
      */
     static any_of(data) {
         if (!Array.isArray(data.terms)) return false;
-        for (let i = 0; i < data.terms.length; i++) {
-            const e = data.terms[i];
-            if (typeof EchoMoJiPackCondition[e.condition] === 'function') {
-                if (EchoMoJiPackCondition[e.condition](e)) return true
-            }
-        }
-        return false;
+        const c = new EchoMoJiPackConditionsChecker(data.terms);
+        return c.checkAnyOf();
     }
 
     /**
@@ -495,6 +485,18 @@ class EchoMoJiPackCondition {
     }
 
     /**
+     * 随机值
+     * @param {Object} data 谓词
+     * @param {String|Object|Number} data.chance 成功率
+     * @returns {Boolean} 结果
+     */
+    static random_chance(data) {
+        if (typeof data.chance !== 'number') return false;
+        if (Math.random() < data.chance) return true;
+        return false;
+    }
+
+    /**
      * 当前星期（从星期日开始）
      * @param {Object} data 谓词
      * @param {String|Object|Number} data.weekday 星期
@@ -538,9 +540,14 @@ class EchoMoJiPackCondition {
 class EchoMoJiPackConditionsChecker {
     constructor(conditions) {
         this.conditions = conditions;
+        this.invalid = false;
+
+        if (typeof this.conditions === 'object' && !Array.isArray(this.conditions)) this.conditions = [this.conditions];
+        if (typeof this.conditions !== 'object') this.invalid = true;
     }
 
     check() {
+        if (this.invalid) return false;
         for (let i = 0; i < this.conditions.length; i++) {
             const e = this.conditions[i];
             if (typeof EchoMoJiPackCondition[e.condition] === 'function') {
@@ -548,5 +555,16 @@ class EchoMoJiPackConditionsChecker {
             }
         }
         return true;
+    }
+
+    checkAnyOf() {
+        if (this.invalid) return false;
+        for (let i = 0; i < this.conditions.length; i++) {
+            const e = this.conditions[i];
+            if (typeof EchoMoJiPackCondition[e.condition] === 'function') {
+                if (EchoMoJiPackCondition[e.condition](e)) return true
+            }
+        }
+        return false;
     }
 }
