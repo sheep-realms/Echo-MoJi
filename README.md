@@ -85,7 +85,7 @@ Echo-MoJi 的富文本格式组件复用了 [Echo-Live](https://github.com/sheep
     "type": "pack",
     "conditions": [
         {
-            "condition": "date",
+            "condition": "date_check",
             "date": "6/1"
         }
     ],
