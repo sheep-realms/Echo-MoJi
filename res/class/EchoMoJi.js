@@ -422,8 +422,8 @@ class EchoMoJiPackCondition {
     /**
      * 与运算
      * @param {Objectt} data 谓词
-     * @param {Array<Object>} data.terms 谓词列表
-     * @returns 
+     * @param {Array<Object>} data.terms 条件列表
+     * @returns {Boolean} 结果
      */
     static all_of(data) {
         if (!Array.isArray(data.terms)) return false;
@@ -434,8 +434,8 @@ class EchoMoJiPackCondition {
     /**
      * 或运算
      * @param {Objectt} data 谓词
-     * @param {Array<Object>} data.terms 谓词列表
-     * @returns 
+     * @param {Array<Object>} data.terms 条件列表
+     * @returns {Boolean} 结果
      */
     static any_of(data) {
         if (!Array.isArray(data.terms)) return false;
@@ -488,6 +488,18 @@ class EchoMoJiPackCondition {
                 endDate.getTime()   >= now.getTime()
             ) return true;
         }
+    }
+
+    /**
+     * 非运算
+     * @param {Objectt} data 谓词
+     * @param {Array<Object>} data.term 条件
+     * @returns {Boolean} 结果
+     */
+    static inverted(data) {
+        if (typeof data.term !== 'object') return false;
+        const c = new EchoMoJiPackConditionsChecker([data.term]);
+        return !c.check();
     }
 
     /**
