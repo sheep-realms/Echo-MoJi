@@ -554,6 +554,7 @@ class EchoMoJiPackConditionsChecker {
 
     check() {
         if (this.invalid) return false;
+        if (this.conditions.length === 0) return false;
         for (let i = 0; i < this.conditions.length; i++) {
             const e = this.conditions[i];
             if (typeof EchoMoJiPackCondition[e.condition] === 'function') {
