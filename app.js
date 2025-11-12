@@ -1,6 +1,6 @@
 const APP_META = {
     name: 'Echo-MoJi',
-    version: '1.0.1',
+    version: '1.0.2',
     isBeta: false
 };
 
