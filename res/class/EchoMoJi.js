@@ -81,7 +81,11 @@ class EchoMoJi {
 
         const _getMessages = (msg2) => {
             output.push(
-                ...msg2.filter(e => (typeof e === 'string') || (typeof e === 'object' && !Array.isArray(e) && e?.type !== 'pack'))
+                ...msg2.filter(
+                    e => (typeof e === 'string')
+                    || (typeof e === 'object' && !Array.isArray(e) && e?.type !== 'pack')
+                    || Array.isArray(e)
+                )
             );
 
             let packs = msg2.filter(e => typeof e === 'object' && !Array.isArray(e) && e?.type === 'pack');
