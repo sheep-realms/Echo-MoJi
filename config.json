@@ -5,12 +5,12 @@
     "color_scheme": "auto",
     "touchscreen_layout": false,
     "controller_layout_reverse": false,
-    "thin_scrollbar": true
+    "thin_scrollbar": false
   },
   "echomoji": {
     "style": {
       "theme": "void",
-      "theme_script_enable": true,
+      "theme_script_enable": false,
       "text_color": "",
       "background_color": "",
       "font_size": "",
@@ -40,7 +40,7 @@
   },
   "accessibility": {
     "font_size": 16,
-    "unlock_page_width": true,
+    "unlock_page_width": false,
     "high_contrast": false,
     "high_contrast_outline_color": "#00E9FF",
     "high_contrast_outline_size": "2px",
@@ -52,11 +52,11 @@
   },
   "advanced": {
     "settings": {
-      "display_config_key": true,
+      "display_config_key": false,
       "display_hidden_option": false,
-      "backend_api_saves": true,
-      "backend_api_url": "https://echo-backend.yangdujun.ly/api/save",
-      "config_file_root": "D:\\web\\Echo-MoJi"
+      "backend_api_saves": false,
+      "backend_api_url": "http://127.0.0.1:3000/api/save_config",
+      "config_file_root": "Echo-MoJi"
     },
     "performance": {
       "row_search_threshold": 1
