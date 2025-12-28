@@ -285,6 +285,18 @@ const lang_zho_Hans = {
                 display_hidden_option: {
                     _title: "显示隐藏选项",
                     _description: "显示一些因特定条件下不可用的或实验性的选项。"
+                },
+                backend_api_saves: {
+                    _title: "使用后端API保存配置文件",
+                    _description: "不知道是什么的情况下不要动它！！！<br>使用后端 API 保存配置文件，以解决跨设备无法保存文件的问题。"
+                },
+                backend_api_url: {
+                    _title: "后端 API 地址",
+                    _description: "后端 API 地址，请确保您已正确配置，否则会导致保存配置文件失败。"
+                },
+                config_file_root: {
+                    _title: "保存配置文件根目录",
+                    _description: "配置文件保存的根目录，一般设置为Echo-MoJi的目录。<br>如:C:\\Echo-MoJi<br>\"\\\"会自动转义，无需手动转义。"
                 }
             },
             performance: {
@@ -418,6 +430,7 @@ const lang_zho_Hans = {
         config_saved: "配置文件已保存！请注意刷新所有页面使新配置生效。",
         config_saving: "保存中...",
         config_saving_fail: "未授权写入，配置文件未保存。",
+        backend_config_saving_fail: "使用后端API保存配置文件失败，请检查API路径或者检查后端。",
         debug_mode: "已启用调试选项！",
         drop_file_cancel_many: "你倒是放啊！",
         open_file_picker_cancel: "已取消选择文件！",

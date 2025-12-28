@@ -360,6 +360,33 @@ const db_config_define = [
         default: false,
         created: 1
     }, {
+        name: 'advanced.settings.backend_api_saves',
+        type: 'boolean',
+        default: false,
+        created: 11
+    }, {
+        name: 'advanced.settings.backend_api_url',
+        type: 'string',
+        default: 'http://127.0.0.1:3000/api/save_config',
+        created: 11,
+        conditions: [
+            {
+                name: 'advanced.settings.backend_api_saves',
+                value: true
+            }
+        ]
+    }, {
+        name: 'advanced.settings.config_file_root',
+        type: 'string',
+        default: 'Echo-MoJi',
+        created: 11,
+        conditions: [
+            {
+                name: 'advanced.settings.backend_api_saves',
+                value: true
+            }
+        ]
+    }, {
         name: 'advanced.performance',
         type: 'object',
         created: 1
