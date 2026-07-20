@@ -19,15 +19,19 @@ class Translator {
         };
     }
 
+    /**
+     * 初始化
+     * @param {String} path 脚本根路径
+     */
     init(path = '') {
         if (this.initialized) return;
-        const mainLang = echoLiveSystem.registry.getRegistryValue('system', 'main_language');
-        const langIndex = echoLiveSystem.registry.getRegistryArray('language_index');
-        this.langIndex = langIndex;
-        this.langMain = mainLang;
-        const mainLangData = langIndex.filter(e => e.code === mainLang)[0];
-        const selectedLangData = langIndex.filter(e => e.code === this.lang)[0];
-        this.initialized = true;
+        const mainLang          = echoLiveSystem.registry.getRegistryValue('system', 'main_language');
+        const langIndex         = echoLiveSystem.registry.getRegistryArray('language_index');
+        this.langIndex          = langIndex;
+        this.langMain           = mainLang;
+        const mainLangData      = langIndex.filter(e => e.code === mainLang)[0];
+        const selectedLangData  = langIndex.filter(e => e.code === this.lang)[0];
+        this.initialized        = true;
         echoLiveSystem.registry.onSetRegistryValue('language', '*', data => {
             this.load(data.value);
         });
@@ -68,6 +72,9 @@ class Translator {
     }
 
     output(key, variable={}, backText = undefined, __inPlanB = false) {
+        if (!this.loaded) {
+            throw new Error(`Localization data not loaded for key: "${key}"`);
+        }
         function __extractVariableNames(inputString) {
             const regI18nVar = /\{\s*@([A-Za-z0-9_\.]+)\s*\}/g;
             const matches = [];

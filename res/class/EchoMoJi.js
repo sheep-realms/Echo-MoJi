@@ -20,13 +20,12 @@ class EchoMoJi {
         this.variablesCache             = {};
         this.lastDate                   = new Date().toDateString();
         this.event                      = {
+            load: function() {},
             send: function() {},
             themeScriptLoad: function() {},
             themeScriptUnload: function() {},
             updateVariables: function() {}
         };
-
-        this.init();
     }
 
     /**
@@ -80,19 +79,30 @@ class EchoMoJi {
         let msg = JSON.parse(JSON.stringify(this.originalMessage));
         let output = [];
 
-        output.push(
-            ...msg.filter(e => (typeof e === 'string') || (typeof e === 'object' && !Array.isArray(e) && e?.type !== 'pack'))
-        );
+        const _getMessages = (msg2) => {
+            output.push(
+                ...msg2.filter(
+                    e => (typeof e === 'string')
+                    || (typeof e === 'object' && !Array.isArray(e) && e?.type !== 'pack')
+                    || Array.isArray(e)
+                )
+            );
 
-        let packs = msg.filter(e => typeof e === 'object' && !Array.isArray(e) && e?.type === 'pack');
+            let packs = msg2.filter(e => typeof e === 'object' && !Array.isArray(e) && e?.type === 'pack');
+            if (packs.length === 0) return;
 
-        try {
-            packs.forEach(e => {
-                if (this.checkPackConditions(e?.conditions)) output.push(...e.content);
-            });
-        } catch (_) {}
+            try {
+                packs.forEach(e => {
+                    if (this.checkPackConditions(e?.conditions)) _getMessages(e.content);
+                });
+            } catch (_) {}
+        }
+
+        _getMessages(msg);
 
         this.messages = output;
+
+        this.event.load(this.messages);
     }
 
     checkPackConditions(conditions) {
@@ -414,6 +424,30 @@ class EchoMoJiPackCondition {
     constructor() {}
 
     /**
+     * 与运算
+     * @param {Objectt} data 谓词
+     * @param {Array<Object>} data.terms 条件列表
+     * @returns {Boolean} 结果
+     */
+    static all_of(data) {
+        if (!Array.isArray(data.terms)) return false;
+        const c = new EchoMoJiPackConditionsChecker(data.terms);
+        return c.check();
+    }
+
+    /**
+     * 或运算
+     * @param {Objectt} data 谓词
+     * @param {Array<Object>} data.terms 条件列表
+     * @returns {Boolean} 结果
+     */
+    static any_of(data) {
+        if (!Array.isArray(data.terms)) return false;
+        const c = new EchoMoJiPackConditionsChecker(data.terms);
+        return c.checkAnyOf();
+    }
+
+    /**
      * 当前日期
      * @param {Object} data 谓词
      * @param {String|Object|Number} data.date 日期
@@ -421,7 +455,7 @@ class EchoMoJiPackCondition {
      * @param {String|Number} data.date.end 结束日期
      * @returns {Boolean} 结果
      */
-    static date(data) {
+    static date_check(data) {
         function _formatDate(input) {
             if (typeof input !== 'string') return input;
             input = input.trim();
@@ -449,14 +483,73 @@ class EchoMoJiPackCondition {
                 checkDate.getDate()     === now.getDate()
             ) return true;
         } else if (typeof data.date === 'object' && !Array.isArray(data.date)) {
-            const startDate = new Date(_formatDate(data.date.start));
-            const endDate   = new Date(_formatDate(data.date.end));
+            const startDate = new Date(_formatDate(data.date.start || 0));
+            const endDate   = new Date(_formatDate(data.date.end || 9e13));
             if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) return false;
             if (startDate.getTime() > endDate.getTime()) return false;
             if (
                 startDate.getTime() <= now.getTime() &&
                 endDate.getTime()   >= now.getTime()
             ) return true;
+        }
+    }
+
+    /**
+     * 非运算
+     * @param {Objectt} data 谓词
+     * @param {Array<Object>} data.term 条件
+     * @returns {Boolean} 结果
+     */
+    static inverted(data) {
+        if (typeof data.term !== 'object') return false;
+        const c = new EchoMoJiPackConditionsChecker([data.term]);
+        return !c.check();
+    }
+
+    /**
+     * 随机值
+     * @param {Object} data 谓词
+     * @param {String|Object|Number} data.chance 成功率
+     * @returns {Boolean} 结果
+     */
+    static random_chance(data) {
+        if (typeof data.chance !== 'number') return false;
+        if (Math.random() < data.chance) return true;
+        return false;
+    }
+
+    /**
+     * 当前星期（从星期日开始）
+     * @param {Object} data 谓词
+     * @param {String|Object|Number} data.weekday 星期
+     * @param {String|Number} data.weekday.start 开始星期
+     * @param {String|Number} data.weekday.end 结束星期
+     * @returns {Boolean} 结果
+     */
+    static weekday_check(data) {
+        const now = new Date();
+        const weekday = now.getDay();
+
+        if (typeof data.weekday === 'string' || typeof data.weekday === 'number') {
+            const v = parseInt(data.weekday, 10);
+            if (Number.isNaN(v)) return false;
+            const w = ((v % 7) + 7) % 7;
+            if (w === weekday) return true;
+        } else if (typeof data.weekday === 'object' && !Array.isArray(data.weekday)) {
+            if (data.weekday.start === undefined || data.weekday.end === undefined) return false;
+            let s = parseInt(data.weekday.start, 10) || 0;
+            let e = parseInt(data.weekday.end, 10) || 6;
+            if (Number.isNaN(s) || Number.isNaN(e)) return false;
+
+            s = ((s % 7) + 7) % 7;
+            e = ((e % 7) + 7) % 7;
+
+            if (s <= e) {
+                if (weekday >= s && weekday <= e) return true;
+            } else {
+                if (weekday >= s || weekday <= e) return true;
+            }
+            return false;
         }
     }
 }
@@ -469,9 +562,15 @@ class EchoMoJiPackCondition {
 class EchoMoJiPackConditionsChecker {
     constructor(conditions) {
         this.conditions = conditions;
+        this.invalid = false;
+
+        if (typeof this.conditions === 'object' && !Array.isArray(this.conditions)) this.conditions = [this.conditions];
+        if (typeof this.conditions !== 'object') this.invalid = true;
     }
 
     check() {
+        if (this.invalid) return false;
+        if (this.conditions.length === 0) return false;
         for (let i = 0; i < this.conditions.length; i++) {
             const e = this.conditions[i];
             if (typeof EchoMoJiPackCondition[e.condition] === 'function') {
@@ -479,5 +578,16 @@ class EchoMoJiPackConditionsChecker {
             }
         }
         return true;
+    }
+
+    checkAnyOf() {
+        if (this.invalid) return false;
+        for (let i = 0; i < this.conditions.length; i++) {
+            const e = this.conditions[i];
+            if (typeof EchoMoJiPackCondition[e.condition] === 'function') {
+                if (EchoMoJiPackCondition[e.condition](e)) return true
+            }
+        }
+        return false;
     }
 }

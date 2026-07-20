@@ -125,7 +125,7 @@ const lang_zho_Hant_HK = {
                 _description: "設置跑馬燈的樣式",
                 theme: {
                     _title: "跑馬燈主題",
-                    _description: "留空則使用全局主題。為了主題樣式的表現正常，請在 OBS 選中跑馬燈，右鍵，在彈出菜單中找到 “混合方式”，選擇 “關閉 sRGB”。"
+                    _description: "為了主題樣式的表現正常，請在 OBS 選中跑馬燈，右鍵，在彈出菜單中找到 “混合方式”，選擇 “關閉 sRGB”。"
                 },
                 theme_script_enable: {
                     _title: "啟用跑馬燈主題腳本",
@@ -325,7 +325,8 @@ const lang_zho_Hant_HK = {
         }
     },
     echomoji: {
-        init: "跑馬燈已載入！"
+        init: "跑馬燈已就緒！正在讀取消息...",
+        messages_loaded: "已載入 {n} 條消息！"
     },
     effect: {
         message_in: {

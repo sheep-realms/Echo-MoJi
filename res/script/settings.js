@@ -74,6 +74,8 @@ window.addEventListener('beforeunload', function (e) {
     }
 });
 
+let configFilePickerOpts;
+
 
 let configSearchDataFilter = new DataFilter(
     '', 
@@ -139,100 +141,6 @@ let configSearchDataFilter = new DataFilter(
         return data;
     }
 );
-
-const configDataList = [
-    {
-        data: arr => {
-            echoLiveSystem.registry.forEach('language_index', e => {
-                arr.push({
-                    value: e.code,
-                    title: `<span lang="${ e.code_ietf }">${ e.title }</sapn>`
-                });
-            });
-        },
-        key: 'global.language'
-    }, {
-        data: arr => {
-            echoLiveSystem.registry.forEach('theme', e => {
-                arr.push({
-                    title: e.title,
-                    value: e.name
-                });
-            });
-        },
-        key: 'echomoji.style.theme'
-    }, {
-        data: [
-            { value: 'auto', title: $t('config.global.color_scheme._value.auto') },
-            { value: 'light', title: $t('config.global.color_scheme._value.light') },
-            { value: 'dark', title: $t('config.global.color_scheme._value.dark') }
-        ],
-        key: 'global.color_scheme'
-    }, {
-        data: arr => {
-            echoLiveSystem.registry.forEach('message_in_effect', e => {
-                if (!e?.hidden || config.advanced.settings.display_hidden_option) arr.push({
-                    title: $t(`effect.message_in.${ e.name }`),
-                    value: e.value
-                });
-            });
-        },
-        key: 'echomoji.message_in_effect.name'
-    }, {
-        data: arr => {
-            echoLiveSystem.registry.forEach('message_out_effect', e => {
-                if (!e?.hidden || config.advanced.settings.display_hidden_option) arr.push({
-                    title: $t(`effect.message_out.${ e.name }`),
-                    value: e.value
-                });
-            });
-        },
-        key: 'echomoji.message_out_effect.name'
-    }, {
-        data: arr => {
-            echoLiveSystem.registry.forEach('timing_function', e => {
-                arr.push({
-                    title: $t(`timing_function.${ e.name }`),
-                    value: e.value
-                });
-            });
-        },
-        key: [
-            'echomoji.message_in_effect.timing_function',
-            'echomoji.message_out_effect.timing_function'
-        ]
-    }, {
-        data: arr => {
-            echoLiveSystem.registry.forEach('border_style', e => {
-                arr.push({
-                    title: $t(`border_style.${ e.name }`, {}, ''),
-                    value: e.value
-                });
-            });
-        },
-        key: 'accessibility.high_contrast_outline_style'
-    }, {
-        data: arr => {
-            echoLiveSystem.registry.forEach('font_weight', e => {
-                arr.push({
-                    title: $t(`font_weight.${ e.name }`, {}, ''),
-                    value: e.value
-                });
-            });
-        },
-        key: 'echomoji.style.font_weight'
-    }, {
-        data: arr => {
-            echoLiveSystem.registry.forEach('random_method', e => {
-                arr.push({
-                    title: $t(`random_method.${ e.name }`, {}, ''),
-                    value: e.value
-                });
-            });
-        },
-        key: 'echomoji.message.random_method'
-    }
-];
 
 
 
@@ -721,6 +629,114 @@ $(document).ready(function() {
 
         // 载入数据
 
+        configFilePickerOpts = {
+            types: [
+                {
+                    description: $t('file.picker.config'),
+                    accept: {
+                        'text/javascript': ['.js', '.mjs'],
+                        'application/json': ['.json']
+                    },
+                },
+            ],
+            excludeAcceptAllOption: true,
+            multiple: false,
+        };
+
+        const configDataList = [
+            {
+                data: arr => {
+                    echoLiveSystem.registry.forEach('language_index', e => {
+                        arr.push({
+                            value: e.code,
+                            title: `<span lang="${ e.code_ietf }">${ e.title }</sapn>`
+                        });
+                    });
+                },
+                key: 'global.language'
+            }, {
+                data: arr => {
+                    echoLiveSystem.registry.forEach('theme', e => {
+                        arr.push({
+                            title: e.title,
+                            value: e.name
+                        });
+                    });
+                },
+                key: 'echomoji.style.theme'
+            }, {
+                data: [
+                    { value: 'auto', title: $t('config.global.color_scheme._value.auto') },
+                    { value: 'light', title: $t('config.global.color_scheme._value.light') },
+                    { value: 'dark', title: $t('config.global.color_scheme._value.dark') }
+                ],
+                key: 'global.color_scheme'
+            }, {
+                data: arr => {
+                    echoLiveSystem.registry.forEach('message_in_effect', e => {
+                        if (!e?.hidden || config.advanced.settings.display_hidden_option) arr.push({
+                            title: $t(`effect.message_in.${ e.name }`),
+                            value: e.value
+                        });
+                    });
+                },
+                key: 'echomoji.message_in_effect.name'
+            }, {
+                data: arr => {
+                    echoLiveSystem.registry.forEach('message_out_effect', e => {
+                        if (!e?.hidden || config.advanced.settings.display_hidden_option) arr.push({
+                            title: $t(`effect.message_out.${ e.name }`),
+                            value: e.value
+                        });
+                    });
+                },
+                key: 'echomoji.message_out_effect.name'
+            }, {
+                data: arr => {
+                    echoLiveSystem.registry.forEach('timing_function', e => {
+                        arr.push({
+                            title: $t(`timing_function.${ e.name }`),
+                            value: e.value
+                        });
+                    });
+                },
+                key: [
+                    'echomoji.message_in_effect.timing_function',
+                    'echomoji.message_out_effect.timing_function'
+                ]
+            }, {
+                data: arr => {
+                    echoLiveSystem.registry.forEach('border_style', e => {
+                        arr.push({
+                            title: $t(`border_style.${ e.name }`, {}, ''),
+                            value: e.value
+                        });
+                    });
+                },
+                key: 'accessibility.high_contrast_outline_style'
+            }, {
+                data: arr => {
+                    echoLiveSystem.registry.forEach('font_weight', e => {
+                        arr.push({
+                            title: $t(`font_weight.${ e.name }`, {}, ''),
+                            value: e.value
+                        });
+                    });
+                },
+                key: 'echomoji.style.font_weight'
+            }, {
+                data: arr => {
+                    echoLiveSystem.registry.forEach('random_method', e => {
+                        arr.push({
+                            title: $t(`random_method.${ e.name }`, {}, ''),
+                            value: e.value
+                        });
+                    });
+                },
+                key: 'echomoji.message.random_method'
+            }
+        ];
+
         function __setConfigDefineDatalist(key, data) {
             let i = settingsManager.findIndexConfigDefine(key);
             if (i === -1) return;
@@ -847,20 +863,6 @@ let inFileDorpLongTime = false;
 let dragleaveCount = 0;
 
 let dropFile, dropFileReader, dropData;
-
-const configFilePickerOpts = {
-    types: [
-        {
-            description: $t('file.picker.config'),
-            accept: {
-                'text/javascript': ['.js', '.mjs'],
-                'application/json': ['.json']
-            },
-        },
-    ],
-    excludeAcceptAllOption: true,
-    multiple: false,
-};
 
 $(document).on('click', '#settings-file-input-box', function(e) {
     filePicker();
