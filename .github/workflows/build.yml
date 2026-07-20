@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - name: Build Info
       run: |
@@ -28,7 +28,7 @@ jobs:
         zip -r echo-moji-build-${{ github.run_number }}.zip . -x @.buildignore
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: echo-moji-build-pack-${{ github.run_number }}
         path: echo-moji-build-${{ github.run_number }}.zip
