@@ -307,6 +307,10 @@ class EchoMoJi {
                 )
             );
         }
+        if (typeof message === 'object' && message.type === 'queue') {
+            this.setMessageQueue(message.content);
+            return this.send(this.getMessageQueueFirst());
+        }
         if (typeof message !== 'object') return;
         if (!Array.isArray(message)) message = [message];
 
