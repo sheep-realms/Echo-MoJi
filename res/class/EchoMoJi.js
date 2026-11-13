@@ -317,14 +317,15 @@ class EchoMoJi {
         let dom = '';
         let r;
         message.forEach(e => {
-            r = EchoLiveTools.messageStyleGenerator(e);
+            r = {}
+            if (typeof e !== 'string') r = EchoLiveTools.messageStyleGenerator(e);
             dom += FHUI.element(
                 'span',
                 {
                     class: r.class,
                     style: r.style
                 },
-                EchoLiveTools.safeHTML(this.fillTextVariables(e.text))
+                EchoLiveTools.safeHTML(this.fillTextVariables(typeof e !== 'string' ? e.text : e))
             );
         });
 
