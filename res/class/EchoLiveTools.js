@@ -64,7 +64,7 @@ class EchoLiveTools {
             cls = data.class + ' ';
         }
         let style = '';
-        if (data?.typewrite) cls += 'echo-text-typewrite '
+        // if (data?.typewrite) cls += 'echo-text-typewrite '
         if (data?.style) {
             if (!config.advanced.performance.foreach_text_style_by_message_data) {
                 echoLiveSystem.registry.forEach('text_style', e => {
