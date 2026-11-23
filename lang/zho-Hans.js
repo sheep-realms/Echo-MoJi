@@ -160,8 +160,8 @@ const lang_zho_Hans = {
                     _description: "每一条消息显示的时间。"
                 },
                 random_method: {
-                    _title: "消息随机方式",
-                    _description: "控制随机抽取消息的细节。<br>- 平均随机：每条消息的出现概率相同。<br>- 加权随机：每条消息的出现概率与其权重成正比，每次抽取将为所有未抽中的消息增加权重，抽中的消息重置权重。"
+                    _title: "消息抽取方式",
+                    _description: "控制抽取消息的细节。<br>- 平均随机：每条消息的出现概率相同。<br>- 加权随机：每条消息的出现概率与其权重成正比，每次抽取将为所有未抽中的消息增加权重，抽中的消息重置权重。<br>- 正序抽取：按消息在数组中的排列顺序依次显示。<br>- 倒序抽取：按消息在数组中的排列顺序逆序依次显示。"
                 },
                 random_weight_init: {
                     _title: "随机权重初始值",
@@ -438,6 +438,8 @@ const lang_zho_Hans = {
     },
     random_method: {
         average: "平均随机",
+        backward: "倒序抽取",
+        forward: "正序抽取",
         weighted: "加权随机"
     },
     settings: {

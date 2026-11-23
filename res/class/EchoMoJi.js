@@ -186,6 +186,28 @@ class EchoMoJi {
     }
 
     /**
+     * 正序索引
+     * @returns {Number} 索引
+     */
+    forwardIndex() {
+        const length = this.messages.length;
+        if (length === 0) return undefined;
+        if (this.lastIndex < 0 || this.lastIndex >= length) return 0;
+        return (this.lastIndex + 1) % length;
+    }
+
+    /**
+     * 倒序索引
+     * @returns {Number} 索引
+     */
+    backwardIndex() {
+        const length = this.messages.length;
+        if (length === 0) return undefined;
+        if (this.lastIndex < 0 || this.lastIndex >= length) return length - 1;
+        return (this.lastIndex - 1 + length) % length;
+    }
+
+    /**
      * 设置消息权重
      * @param {Number} index 索引
      * @param {Number} weight 权重
@@ -263,19 +285,20 @@ class EchoMoJi {
             return;
         }
 
-        // 选择随机方法
-        let randomMethod = this.config.echomoji.message.random_method;
+        // 选择抽取方法
         const randomMethodMap = {
+            forward: 'forwardIndex',
+            backward: 'backwardIndex',
             average: 'randomIndex',
             weighted: 'weightedRandomIndex'
         };
-        if (randomMethodMap[this.config.echomoji.message.random_method] === undefined) randomMethod = 'randomIndex';
+        const randomMethod = randomMethodMap[this.config.echomoji.message.random_method] || 'randomIndex';
 
         // 尝试抽取
         let r;
         let rc = 0;
         do {
-            r = this[randomMethodMap[randomMethod]].call(this);
+            r = this[randomMethod].call(this);
             rc++;
         } while (r === undefined && rc < 16);
 

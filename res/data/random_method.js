@@ -3,8 +3,12 @@ echoLiveSystem.registry.loadRegistry('random_method', e => {
     return e.name;
 }, [
     {
-        value: 'average',
+        value: 'average'
     }, {
-        value: 'weighted',
+        value: 'weighted'
+    }, {
+        value: 'forward'
+    }, {
+        value: 'backward'
     }
 ]);
