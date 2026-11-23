@@ -160,8 +160,8 @@ const lang_zho_Hant_HK = {
                     _description: "每一條消息顯示的時間。"
                 },
                 random_method: {
-                    _title: "消息隨機方式",
-                    _description: "控制隨機抽取消息的細節。<br>- 平均隨機：每條消息的出現概率相同。<br>- 加權隨機：每條消息的出現概率與其權重成正比，每次抽取將為所有未抽中的消息增加權重，抽中的消息重置權重。"
+                    _title: "消息抽取方式",
+                    _description: "控制抽取消息的細節。<br>- 正序抽取：按消息在陣列中的排列順序依次顯示。<br>- 倒序抽取：按消息在陣列中的排列順序逆序依次顯示。<br>- 平均隨機：每條消息的出現概率相同。<br>- 加權隨機：每條消息的出現概率與其權重成正比，每次抽取將為所有未抽中的消息增加權重，抽中的消息重置權重。"
                 },
                 random_weight_init: {
                     _title: "隨機權重初始值",
@@ -437,6 +437,8 @@ const lang_zho_Hant_HK = {
         settings: "Echo MoJi 配置文件編輯器"
     },
     random_method: {
+        forward: "正序抽取",
+        backward: "倒序抽取",
         average: "平均隨機",
         weighted: "加權隨機"
     },
