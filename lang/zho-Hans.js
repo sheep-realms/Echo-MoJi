@@ -437,9 +437,9 @@ const lang_zho_Hans = {
         settings: "Echo MoJi 配置文件编辑器"
     },
     random_method: {
-        forward: "正序抽取",
-        backward: "倒序抽取",
         average: "平均随机",
+        backward: "倒序抽取",
+        forward: "正序抽取",
         weighted: "加权随机"
     },
     settings: {

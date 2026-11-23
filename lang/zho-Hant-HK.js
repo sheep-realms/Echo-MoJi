@@ -437,9 +437,9 @@ const lang_zho_Hant_HK = {
         settings: "Echo MoJi 配置文件編輯器"
     },
     random_method: {
-        forward: "正序抽取",
-        backward: "倒序抽取",
         average: "平均隨機",
+        backward: "倒序抽取",
+        forward: "正序抽取",
         weighted: "加權隨機"
     },
     settings: {
